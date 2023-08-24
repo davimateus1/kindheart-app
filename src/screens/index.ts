@@ -1,2 +1,2 @@
-export * from "./InitialScreen";
-export * from "./LoginScreen";
+export * from './InitialScreen';
+export * from './LoginScreen';

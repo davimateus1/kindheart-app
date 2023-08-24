@@ -1,27 +1,21 @@
-import React from "react";
-import { Flex, Heading, Image, Text } from "native-base";
-import ElderlyLogo from "../../assets/elderly-detail.png";
-import KindheartLogo from "../../assets/kindheart-logo.png";
-import { CustomButton } from "../components";
-import { NavigationProp } from "@react-navigation/native";
+import React from 'react';
+import { Flex, Heading, Image, Text } from 'native-base';
+import { NavigationProp } from '@react-navigation/native';
+import ElderlyLogo from '../../assets/elderly-detail.png';
+import KindheartLogo from '../../assets/kindheart-logo.png';
+import { CustomButton } from '../components';
 
 type InitialScreenProps = {
   navigation: NavigationProp<Record<string, object | undefined>>;
 };
 
-export const InitialScreen = ({ navigation }: InitialScreenProps) => {
+export function InitialScreen({ navigation }: InitialScreenProps) {
   const handleNavigateToLogin = () => {
-    navigation.navigate("login");
+    navigation.navigate('login');
   };
 
   return (
-    <Flex
-      flex={1}
-      bgColor="white"
-      direction="column"
-      align="center"
-      position="relative"
-    >
+    <Flex flex={1} bgColor="white" direction="column" align="center" position="relative">
       <Image source={ElderlyLogo} alt="elderly-logo" w="100%" h="50%" />
       <Image source={KindheartLogo} alt="kindheart-logo" mt={5} />
       <Flex direction="column" w="100%" align="center">
@@ -40,4 +34,4 @@ export const InitialScreen = ({ navigation }: InitialScreenProps) => {
       />
     </Flex>
   );
-};
+}

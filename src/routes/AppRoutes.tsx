@@ -1,13 +1,13 @@
-import { createStackNavigator } from "@react-navigation/stack";
-import { InitialScreen, LoginScreen } from "../screens";
+import { createStackNavigator } from '@react-navigation/stack';
+import { InitialScreen, LoginScreen } from '../screens';
 
 const { Navigator, Screen } = createStackNavigator();
 
-export const AppRoutes = () => {
+export function AppRoutes() {
   return (
     <Navigator screenOptions={{ headerShown: false }}>
       <Screen name="initial" component={InitialScreen} />
       <Screen name="login" component={LoginScreen} />
     </Navigator>
   );
-};
+}

@@ -1,13 +1,5 @@
-import {
-  FormControl,
-  IInputProps,
-  Input,
-  IStackProps,
-  ITextProps,
-  Stack,
-  Text,
-} from "native-base";
-import { memo } from "react";
+import { FormControl, IInputProps, Input, IStackProps, ITextProps, Stack, Text } from 'native-base';
+import { memo } from 'react';
 import {
   ControllerProps,
   FieldError,
@@ -16,15 +8,15 @@ import {
   UseControllerProps,
   useController,
   FieldValues,
-} from "react-hook-form";
-import { useMaskedInputProps, Mask } from "react-native-mask-input";
+} from 'react-hook-form';
+import { useMaskedInputProps, Mask } from 'react-native-mask-input';
 
 export type InputProps = {
   label?: string;
   name: string;
-  control: ControllerProps<any>["control"];
+  control: ControllerProps<any>['control'];
   error?: FieldError | Merge<FieldError, FieldErrorsImpl<FieldValues>>;
-  rules?: UseControllerProps["rules"];
+  rules?: UseControllerProps['rules'];
   mask?: Mask;
   inputProps?: IInputProps;
   stackProps?: IStackProps;
@@ -33,10 +25,10 @@ export type InputProps = {
 };
 
 const defaultLabelStyle: ITextProps = {
-  fontSize: "15",
+  fontSize: '15',
 };
 
-const BaseInput = ({
+function BaseInput({
   label,
   name,
   error,
@@ -47,13 +39,13 @@ const BaseInput = ({
   labelProps,
   isEditable = true,
   stackProps,
-}: InputProps) => {
+}: InputProps) {
   const {
     field: { onChange, value: valueInput },
-  } = useController({ name: name || "", control, rules });
+  } = useController({ name: name || '', control, rules });
   const maskedInputProps = useMaskedInputProps({
     value: valueInput,
-    onChangeText: (text) => {
+    onChangeText: text => {
       if (isEditable) {
         onChange(text);
       }
@@ -63,12 +55,12 @@ const BaseInput = ({
 
   return (
     <Stack space={1} w="100%" {...stackProps}>
-      <FormControl w="100%" isInvalid={error ? true : false}>
+      <FormControl w="100%" isInvalid={!!error}>
         {label && (
           <FormControl.Label {...defaultLabelStyle}>
             <Text
               {...{ ...defaultLabelStyle, ...labelProps }}
-              color={error ? "red.500" : "brand.50"}
+              color={error ? 'red.500' : 'brand.50'}
             >
               {label}
             </Text>
@@ -79,19 +71,17 @@ const BaseInput = ({
           {...maskedInputProps}
           {...inputProps}
           isDisabled={!isEditable}
-          borderColor={error ? "red.500" : "brand.50"}
-          color={error ? "red.500" : "brand.100"}
+          borderColor={error ? 'red.500' : 'brand.50'}
+          color={error ? 'red.500' : 'brand.100'}
           borderWidth={1}
           borderRadius={7}
           fontSize={13}
         />
 
-        {error && (
-          <FormControl.ErrorMessage>{error?.message}</FormControl.ErrorMessage>
-        )}
+        {error && <FormControl.ErrorMessage>{error?.message}</FormControl.ErrorMessage>}
       </FormControl>
     </Stack>
   );
-};
+}
 
 export const CustomInput = memo(BaseInput);

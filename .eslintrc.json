@@ -3,12 +3,9 @@
     "airbnb",
     "airbnb/hooks",
     "plugin:@typescript-eslint/recommended",
-    "prettier",
-    "prettier/react",
-    "prettier/@typescript-eslint",
-    "plugin:prettier/recommended"
+    "prettier"
   ],
-  "plugins": ["@typescript-eslint", "react", "prettier"],
+  "plugins": ["@typescript-eslint", "react", "prettier", "unused-imports"],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaFeatures": {
@@ -20,12 +17,14 @@
   },
   "rules": {
     "import/no-unresolved": 0,
-    "react/jsx-filename-extension": [1, {
-      "extensions": [
-        ".ts",
-        ".tsx"
-      ]
-    }],
+    "react/jsx-filename-extension": [
+      1,
+      {
+        "extensions": [".ts", ".tsx"]
+      }
+    ],
+    "import/prefer-default-export": 0,
+    "react/react-in-jsx-scope": 0,
     "prettier/prettier": [
       "error",
       {
@@ -33,6 +32,19 @@
         "trailingComma": "all",
         "arrowParens": "avoid",
         "endOfLine": "auto"
+      }
+    ],
+    "unused-imports/no-unused-imports": "error",
+    "react/require-default-props": 0,
+    "react/jsx-props-no-spreading": 0,
+    "@typescript-eslint/no-explicit-any": 0,
+    "unused-imports/no-unused-vars": [
+      "warn",
+      {
+        "vars": "all",
+        "varsIgnorePattern": "^_",
+        "args": "after-used",
+        "argsIgnorePattern": "^_"
       }
     ],
     "no-use-before-define": "off",

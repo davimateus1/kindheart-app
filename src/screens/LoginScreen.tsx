@@ -1,31 +1,34 @@
-import { Flex, Heading, Image, Stack, Text } from "native-base";
-import { useForm } from "react-hook-form";
-import { useState } from "react";
-import { FontAwesome } from "@expo/vector-icons";
+import { Flex, Heading, Image, Stack, Text } from 'native-base';
+import { useForm } from 'react-hook-form';
+import { useState } from 'react';
+import { FontAwesome } from '@expo/vector-icons';
 
-import KindheartLogo from "../../assets/kindheart-logo.png";
-import { CustomButton, CustomInput } from "../components";
+import { zodResolver } from '@hookform/resolvers/zod';
+import KindheartLogo from '../../assets/kindheart-logo.png';
+import { CustomButton, CustomInput } from '../components';
 
-import { loginRules } from "../rules";
-import { LoginForm } from "../@types/form.types";
+import { loginRules } from '../rules';
 
-export const LoginScreen = () => {
+import { LoginSchema, loginSchema } from '../schemas';
+
+export function LoginScreen() {
   const [showPassword, setShowPassword] = useState(false);
 
   const {
     control,
     formState: { errors },
     handleSubmit,
-  } = useForm<LoginForm>({
-    reValidateMode: "onSubmit",
+  } = useForm<LoginSchema>({
+    reValidateMode: 'onSubmit',
+    resolver: zodResolver(loginSchema),
   });
 
-  const handleLogin = handleSubmit((data) => {
+  const handleLogin = handleSubmit(data => {
     console.log(data);
   });
 
   const handleShowPassword = () => {
-    setShowPassword((prev) => !prev);
+    setShowPassword(prev => !prev);
   };
 
   return (
@@ -45,8 +48,8 @@ export const LoginScreen = () => {
           name="email"
           control={control}
           inputProps={{
-            placeholder: "Digite seu e-mail",
-            keyboardType: "email-address",
+            placeholder: 'Digite seu e-mail',
+            keyboardType: 'email-address',
           }}
           error={errors.email}
           rules={loginRules.email}
@@ -57,11 +60,11 @@ export const LoginScreen = () => {
           control={control}
           rules={loginRules.password}
           inputProps={{
-            placeholder: "Digite sua senha",
+            placeholder: 'Digite sua senha',
             secureTextEntry: !showPassword,
             rightElement: (
               <FontAwesome
-                name={showPassword ? "eye-slash" : "eye"}
+                name={showPassword ? 'eye-slash' : 'eye'}
                 size={24}
                 color="green"
                 onPress={handleShowPassword}
@@ -82,7 +85,7 @@ export const LoginScreen = () => {
             color="brand.100"
           />
           <Text color="brand.100" mt={2}>
-            Não tem uma conta?{" "}
+            Não tem uma conta?{' '}
             <Text color="brand.50" fontWeight="bold">
               Cadastre-se
             </Text>
@@ -91,4 +94,4 @@ export const LoginScreen = () => {
       </Stack>
     </Flex>
   );
-};
+}
