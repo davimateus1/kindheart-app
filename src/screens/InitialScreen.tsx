@@ -2,9 +2,18 @@ import React from "react";
 import { Flex, Heading, Image, Text } from "native-base";
 import ElderlyLogo from "../../assets/elderly-detail.png";
 import KindheartLogo from "../../assets/kindheart-logo.png";
-import { Button } from "../components";
+import { CustomButton } from "../components";
+import { NavigationProp } from "@react-navigation/native";
 
-export const InitialScreen = () => {
+type InitialScreenProps = {
+  navigation: NavigationProp<Record<string, object | undefined>>;
+};
+
+export const InitialScreen = ({ navigation }: InitialScreenProps) => {
+  const handleNavigateToLogin = () => {
+    navigation.navigate("login");
+  };
+
   return (
     <Flex
       flex={1}
@@ -23,7 +32,12 @@ export const InitialScreen = () => {
           Um sorriso por vez, transformando e impactando vidas.
         </Text>
       </Flex>
-      <Button position="absolute" bottom={10} text="Comece agora" />
+      <CustomButton
+        position="absolute"
+        bottom={10}
+        text="Comece agora"
+        onPress={handleNavigateToLogin}
+      />
     </Flex>
   );
 };

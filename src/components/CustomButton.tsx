@@ -1,13 +1,13 @@
 import { ComponentProps } from "react";
-import { Button as NativeButton } from "native-base";
+import { Button } from "native-base";
 
 type ButtonProps = {
   text: string;
-} & ComponentProps<typeof NativeButton>;
+} & ComponentProps<typeof Button>;
 
-export const Button = ({ text, ...rest }: ButtonProps) => {
+export const CustomButton = ({ text, ...rest }: ButtonProps) => {
   return (
-    <NativeButton
+    <Button
       bgColor="brand.50"
       color="brand.100"
       w="80%"
@@ -15,6 +15,6 @@ export const Button = ({ text, ...rest }: ButtonProps) => {
       {...rest}
     >
       {text}
-    </NativeButton>
+    </Button>
   );
 };
