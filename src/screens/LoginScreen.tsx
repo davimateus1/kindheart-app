@@ -49,7 +49,6 @@ export const LoginScreen = () => {
             keyboardType: "email-address",
           }}
           error={errors.email}
-          showBorderError={!!errors.email}
           rules={loginRules.email}
         />
         <CustomInput
@@ -71,7 +70,6 @@ export const LoginScreen = () => {
             ),
           }}
           error={errors.password}
-          showBorderError={!!errors.password}
         />
         <Flex align="center">
           <CustomButton

@@ -30,7 +30,6 @@ export type InputProps = {
   stackProps?: IStackProps;
   labelProps?: ITextProps;
   isEditable?: boolean;
-  showBorderError?: boolean;
 };
 
 const defaultLabelStyle: ITextProps = {
