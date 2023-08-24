@@ -1,10 +1,14 @@
-import { NativeBaseProvider, Text } from "native-base";
+import { NativeBaseProvider } from "native-base";
 import { theme } from "./src/theme";
+import { ReactNode } from "react";
+import { Routes } from "./src/routes";
 
-export default function App() {
+const App = (): ReactNode => {
   return (
     <NativeBaseProvider theme={theme}>
-      <Text color="brand.50">Test Custom Theme</Text>
+      <Routes />
     </NativeBaseProvider>
   );
-}
+};
+
+export default App;
