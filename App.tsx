@@ -1,9 +1,8 @@
 import { NativeBaseProvider } from "native-base";
 import { theme } from "./src/theme";
-import { ReactNode } from "react";
 import { Routes } from "./src/routes";
 
-const App = (): ReactNode => {
+const App = () => {
   return (
     <NativeBaseProvider theme={theme}>
       <Routes />

@@ -12,7 +12,7 @@ export const theme = extendTheme({
     initialColorMode: "dark",
   },
   fonts: {
-    heading: "Montserrat",
+    heading: "Montserrat, sans-serif",
     body: "Poppins, sans-serif",
   },
 });
