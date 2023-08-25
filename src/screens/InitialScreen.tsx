@@ -26,12 +26,9 @@ export function InitialScreen({ navigation }: InitialScreenProps) {
           Um sorriso por vez, transformando e impactando vidas.
         </Text>
       </Flex>
-      <CustomButton
-        position="absolute"
-        bottom={10}
-        text="Comece agora"
-        onPress={handleNavigateToLogin}
-      />
+      <CustomButton position="absolute" bottom={10} onPress={handleNavigateToLogin}>
+        Comece agora
+      </CustomButton>
     </Flex>
   );
 }

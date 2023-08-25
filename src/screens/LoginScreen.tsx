@@ -4,14 +4,17 @@ import { useState } from 'react';
 import { FontAwesome } from '@expo/vector-icons';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import KindheartLogo from '../../assets/kindheart-logo.png';
-import { CustomButton, CustomInput } from '../components';
-
-import { loginRules } from '../rules';
+import { NavigationProp } from '@react-navigation/native';
+import { CustomButton, CustomInput } from 'src/components';
+import KindheartLogo from 'assets/kindheart-logo.png';
 
 import { LoginSchema, loginSchema } from '../schemas';
 
-export function LoginScreen() {
+type LoginScreenProps = {
+  navigation: NavigationProp<Record<string, object | undefined>>;
+};
+
+export function LoginScreen({ navigation }: LoginScreenProps) {
   const [showPassword, setShowPassword] = useState(false);
 
   const {
@@ -19,7 +22,7 @@ export function LoginScreen() {
     formState: { errors },
     handleSubmit,
   } = useForm<LoginSchema>({
-    reValidateMode: 'onSubmit',
+    reValidateMode: 'onChange',
     resolver: zodResolver(loginSchema),
   });
 
@@ -29,6 +32,10 @@ export function LoginScreen() {
 
   const handleShowPassword = () => {
     setShowPassword(prev => !prev);
+  };
+
+  const handleNavigateToRegister = () => {
+    navigation.navigate('register');
   };
 
   return (
@@ -52,13 +59,11 @@ export function LoginScreen() {
             keyboardType: 'email-address',
           }}
           error={errors.email}
-          rules={loginRules.email}
         />
         <CustomInput
           label="Senha"
           name="password"
           control={control}
-          rules={loginRules.password}
           inputProps={{
             placeholder: 'Digite sua senha',
             secureTextEntry: !showPassword,
@@ -66,7 +71,7 @@ export function LoginScreen() {
               <FontAwesome
                 name={showPassword ? 'eye-slash' : 'eye'}
                 size={24}
-                color="green"
+                color={errors.password ? 'red' : 'green'}
                 onPress={handleShowPassword}
                 style={{ marginRight: 12 }}
               />
@@ -76,17 +81,18 @@ export function LoginScreen() {
         />
         <Flex align="center">
           <CustomButton
-            text="Entrar"
             onPress={handleLogin}
             w="100%"
             mt={5}
             py={4}
             bgColor="brand.50"
             color="brand.100"
-          />
+          >
+            Entrar
+          </CustomButton>
           <Text color="brand.100" mt={2}>
             Não tem uma conta?{' '}
-            <Text color="brand.50" fontWeight="bold">
+            <Text color="brand.50" fontWeight="bold" onPress={handleNavigateToRegister}>
               Cadastre-se
             </Text>
           </Text>

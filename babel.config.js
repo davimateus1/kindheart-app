@@ -17,10 +17,6 @@ module.exports = api => {
             '.ios.js',
             '.ios.tsx',
           ],
-          alias: {
-            '@assets': './src/assets',
-            '@src': './src',
-          },
         },
       ],
     ],
