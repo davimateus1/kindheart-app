@@ -6,8 +6,7 @@ import { NavigationProp } from '@react-navigation/native';
 import { useForm } from 'react-hook-form';
 import { Masks } from 'react-native-mask-input';
 import { useState } from 'react';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { RegisterSchema, registerSchema } from 'src/schemas';
+import { RegisterSchema } from 'src/schemas';
 import KindheartLogo from '../../assets/kindheart-logo.png';
 
 type RegisterScreenProps = {
@@ -29,7 +28,7 @@ export function RegisterScreen({ navigation }: RegisterScreenProps) {
     watch,
   } = useForm<RegisterSchema>({
     reValidateMode: 'onChange',
-    resolver: zodResolver(registerSchema),
+    // resolver: zodResolver(registerSchema),
   });
 
   const handleGoBack = () => {
@@ -45,6 +44,7 @@ export function RegisterScreen({ navigation }: RegisterScreenProps) {
   };
 
   const handleRegister = handleSubmit(data => {
+    navigation.navigate('codeScreen');
     console.log(data);
   });
 
@@ -123,7 +123,7 @@ export function RegisterScreen({ navigation }: RegisterScreenProps) {
                   <FontAwesome
                     name={show.password ? 'eye-slash' : 'eye'}
                     size={24}
-                    color="green"
+                    color={errors.password ? 'red' : 'green'}
                     onPress={() => handleShowPassword('password')}
                     style={{ marginRight: 12 }}
                   />

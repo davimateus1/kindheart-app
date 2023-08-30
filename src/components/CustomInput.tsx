@@ -68,14 +68,14 @@ function BaseInput({
         )}
 
         <Input
-          {...maskedInputProps}
-          {...inputProps}
           isDisabled={!isEditable}
           borderColor={error ? 'red.500' : 'brand.50'}
           color={error ? 'red.500' : 'brand.100'}
           borderWidth={1}
           borderRadius={7}
           fontSize={13}
+          {...maskedInputProps}
+          {...inputProps}
         />
 
         {error && <FormControl.ErrorMessage>{error?.message}</FormControl.ErrorMessage>}

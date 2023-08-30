@@ -90,9 +90,14 @@ export function LoginScreen({ navigation }: LoginScreenProps) {
           >
             Entrar
           </CustomButton>
-          <Text color="brand.100" mt={2}>
+          <Text color="brand.100" mt={2} fontSize="md">
             Não tem uma conta?{' '}
-            <Text color="brand.50" fontWeight="bold" onPress={handleNavigateToRegister}>
+            <Text
+              color="brand.50"
+              fontWeight="bold"
+              onPress={handleNavigateToRegister}
+              textDecorationLine="underline"
+            >
               Cadastre-se
             </Text>
           </Text>
