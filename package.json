@@ -15,6 +15,7 @@
     "@react-navigation/stack": "^6.3.17",
     "expo": "48.0",
     "expo-cli": "^6.3.10",
+    "expo-image-picker": "~14.1.1",
     "expo-status-bar": "~1.6.0",
     "native-base": "^3.4.28",
     "normalize-css-color": "^1.0.2",

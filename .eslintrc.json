@@ -38,6 +38,7 @@
     "react/require-default-props": 0,
     "react/jsx-props-no-spreading": 0,
     "@typescript-eslint/no-explicit-any": 0,
+    "import/no-extraneous-dependencies": 0,
     "unused-imports/no-unused-vars": [
       "warn",
       {

@@ -1,11 +1,13 @@
-import { Flex, HStack, Heading, Image, ScrollView, Text } from 'native-base';
+import { Flex, HStack, Heading, Image, ScrollView, Text, useDisclose } from 'native-base';
 import { AntDesign, FontAwesome } from '@expo/vector-icons';
 
-import { CustomHeader, CustomInput } from 'src/components';
+import { CameraAndGalery, CustomButton, CustomHeader, CustomInput } from 'src/components';
 import { NavigationProp } from '@react-navigation/native';
 import { useForm } from 'react-hook-form';
 import { Masks } from 'react-native-mask-input';
 import { useState } from 'react';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { RegisterSchema, registerSchema } from 'src/schemas';
 import KindheartLogo from '../../assets/kindheart-logo.png';
 
 type RegisterScreenProps = {
@@ -13,12 +15,22 @@ type RegisterScreenProps = {
 };
 
 export function RegisterScreen({ navigation }: RegisterScreenProps) {
+  const { isOpen, onOpen, onClose } = useDisclose();
   const [show, setShow] = useState({
     password: false,
     confirmPassword: false,
   });
 
-  const { control } = useForm();
+  const {
+    control,
+    formState: { errors },
+    handleSubmit,
+    setValue,
+    watch,
+  } = useForm<RegisterSchema>({
+    reValidateMode: 'onChange',
+    resolver: zodResolver(registerSchema),
+  });
 
   const handleGoBack = () => {
     navigation.goBack();
@@ -27,6 +39,14 @@ export function RegisterScreen({ navigation }: RegisterScreenProps) {
   const handleShowPassword = (field: 'password' | 'confirmPassword') => {
     setShow(prev => ({ ...prev, [field]: !prev[field] }));
   };
+
+  const handleSelectImage = (base64: string) => {
+    setValue('image', base64);
+  };
+
+  const handleRegister = handleSubmit(data => {
+    console.log(data);
+  });
 
   return (
     <Flex flex={1} bgColor="white" direction="column" align="center">
@@ -52,6 +72,7 @@ export function RegisterScreen({ navigation }: RegisterScreenProps) {
               label="Nome"
               stackProps={{ w: '47.5%' }}
               inputProps={{ autoCapitalize: 'words', placeholder: 'Digite seu nome' }}
+              error={errors.firstName}
             />
             <CustomInput
               control={control}
@@ -59,6 +80,7 @@ export function RegisterScreen({ navigation }: RegisterScreenProps) {
               label="Sobrenome"
               stackProps={{ w: '47.5%' }}
               inputProps={{ autoCapitalize: 'words', placeholder: 'Digite seu sobrenome' }}
+              error={errors.lastName}
             />
           </Flex>
 
@@ -70,6 +92,7 @@ export function RegisterScreen({ navigation }: RegisterScreenProps) {
               stackProps={{ w: '47.5%' }}
               inputProps={{ keyboardType: 'numeric' }}
               mask={Masks.DATE_DDMMYYYY}
+              error={errors.birthDate}
             />
             <CustomInput
               control={control}
@@ -77,6 +100,7 @@ export function RegisterScreen({ navigation }: RegisterScreenProps) {
               stackProps={{ w: '47.5%' }}
               label="CPF"
               mask={Masks.BRL_CPF}
+              error={errors.cpf}
             />
           </Flex>
 
@@ -86,6 +110,7 @@ export function RegisterScreen({ navigation }: RegisterScreenProps) {
               name="email"
               label="E-mail"
               inputProps={{ placeholder: 'Digite seu e-mail', keyboardType: 'email-address' }}
+              error={errors.email}
             />
             <CustomInput
               label="Senha"
@@ -104,28 +129,39 @@ export function RegisterScreen({ navigation }: RegisterScreenProps) {
                   />
                 ),
               }}
-            />
-            <CustomInput
-              label="Confirmar senha"
-              name="confirmPassword"
-              control={control}
-              inputProps={{
-                placeholder: 'Confirme sua senha',
-                secureTextEntry: !show.confirmPassword,
-                rightElement: (
-                  <FontAwesome
-                    name={show.confirmPassword ? 'eye-slash' : 'eye'}
-                    size={24}
-                    color="green"
-                    onPress={() => handleShowPassword('confirmPassword')}
-                    style={{ marginRight: 12 }}
-                  />
-                ),
-              }}
+              error={errors.password}
             />
           </Flex>
+          <Flex align="center">
+            <Text color="brand.50" fontSize={15} mb={1} w="100%">
+              Escolha sua foto de perfil
+            </Text>
+            {!!watch('image') && (
+              <Flex align="flex-end">
+                <FontAwesome
+                  name="close"
+                  size={24}
+                  color="red"
+                  onPress={() => setValue('image', '')}
+                />
+                <Image
+                  source={{ uri: watch('image') }}
+                  alt="profile-image"
+                  mb={2}
+                  style={{ width: 100, height: 100, borderRadius: 50 }}
+                />
+              </Flex>
+            )}
+            <CustomButton w="100%" onPress={onOpen}>
+              <Text color="white">Escolher foto</Text>
+            </CustomButton>
 
-          {/* Aqui será o input de inserir foto */}
+            <CameraAndGalery
+              handleSelectImage={handleSelectImage}
+              isOpen={isOpen}
+              onClose={onClose}
+            />
+          </Flex>
 
           <Flex direction="row" justify="space-between">
             <CustomInput
@@ -134,6 +170,7 @@ export function RegisterScreen({ navigation }: RegisterScreenProps) {
               label="Telefone pessoal"
               stackProps={{ w: '47.5%' }}
               mask={Masks.BRL_PHONE}
+              error={errors.personalPhone}
             />
             <CustomInput
               control={control}
@@ -141,17 +178,29 @@ export function RegisterScreen({ navigation }: RegisterScreenProps) {
               label="Telefone secundário"
               stackProps={{ w: '47.5%' }}
               mask={Masks.BRL_PHONE}
+              error={errors.emergencyPhone}
             />
           </Flex>
 
           <Flex direction="row" justify="space-between">
             <CustomInput
               control={control}
-              name="Endereço"
+              name="address"
               label="Endereço"
               inputProps={{ placeholder: 'Digite seu endereço' }}
+              error={errors.address}
             />
           </Flex>
+          <CustomButton
+            w="100%"
+            mt={1}
+            py={4}
+            bgColor="brand.50"
+            color="brand.100"
+            onPress={handleRegister}
+          >
+            Entrar
+          </CustomButton>
         </HStack>
       </ScrollView>
     </Flex>
