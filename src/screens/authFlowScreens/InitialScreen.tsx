@@ -1,9 +1,9 @@
 import React from 'react';
 import { Flex, Heading, Image, Text } from 'native-base';
 import { NavigationProp } from '@react-navigation/native';
-import ElderlyLogo from '../../assets/elderly-detail.png';
-import KindheartLogo from '../../assets/kindheart-logo.png';
-import { CustomButton } from '../components';
+import { CustomButton } from 'src/components';
+import KindheartLogo from 'assets/kindheart-logo.png';
+import ElderlyLogo from 'assets/elderly-detail.png';
 
 type InitialScreenProps = {
   navigation: NavigationProp<Record<string, object | undefined>>;

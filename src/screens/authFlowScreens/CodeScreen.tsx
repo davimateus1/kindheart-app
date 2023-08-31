@@ -4,9 +4,9 @@ import { CustomButton, CustomHeader, CustomInput } from 'src/components';
 import { NavigationProp } from '@react-navigation/native';
 
 import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
 import { CodeSchema, codeSchema } from 'src/schemas';
-import KindheartLogo from '../../assets/kindheart-logo.png';
+import KindheartLogo from 'assets/kindheart-logo.png';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 type CodeScreenProps = {
   navigation: NavigationProp<Record<string, object | undefined>>;

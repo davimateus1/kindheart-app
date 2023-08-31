@@ -5,10 +5,10 @@ import { FontAwesome } from '@expo/vector-icons';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { NavigationProp } from '@react-navigation/native';
+
 import { CustomButton, CustomInput } from 'src/components';
 import KindheartLogo from 'assets/kindheart-logo.png';
-
-import { LoginSchema, loginSchema } from '../schemas';
+import { LoginSchema, loginSchema } from 'src/schemas';
 
 type LoginScreenProps = {
   navigation: NavigationProp<Record<string, object | undefined>>;

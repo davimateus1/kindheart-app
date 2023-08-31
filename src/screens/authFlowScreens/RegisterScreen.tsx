@@ -1,13 +1,15 @@
+import { useState } from 'react';
 import { Flex, HStack, Heading, Image, ScrollView, Text, useDisclose } from 'native-base';
 import { AntDesign, FontAwesome } from '@expo/vector-icons';
 
 import { CameraAndGalery, CustomButton, CustomHeader, CustomInput } from 'src/components';
 import { NavigationProp } from '@react-navigation/native';
 import { useForm } from 'react-hook-form';
+
 import { Masks } from 'react-native-mask-input';
-import { useState } from 'react';
-import { RegisterSchema } from 'src/schemas';
-import KindheartLogo from '../../assets/kindheart-logo.png';
+import { RegisterSchema, registerSchema } from 'src/schemas';
+import KindheartLogo from 'assets/kindheart-logo.png';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 type RegisterScreenProps = {
   navigation: NavigationProp<Record<string, object | undefined>>;
@@ -28,7 +30,7 @@ export function RegisterScreen({ navigation }: RegisterScreenProps) {
     watch,
   } = useForm<RegisterSchema>({
     reValidateMode: 'onChange',
-    // resolver: zodResolver(registerSchema),
+    resolver: zodResolver(registerSchema),
   });
 
   const handleGoBack = () => {
