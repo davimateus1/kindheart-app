@@ -4,6 +4,7 @@ import BigCheck from 'assets/big-check-icon.png';
 
 import { CustomButton } from 'src/components';
 import { NavigationProp } from '@react-navigation/native';
+import { useEffect } from 'react';
 
 type SuccessScreenProps = {
   navigation: NavigationProp<Record<string, object | undefined>>;
@@ -13,6 +14,13 @@ export function SuccessScreen({ navigation }: SuccessScreenProps) {
   const handleNavigateToLogin = () => {
     navigation.navigate('login');
   };
+
+  useEffect(
+    () => () => {
+      navigation.navigate('login');
+    },
+    [navigation],
+  );
 
   return (
     <Flex flex={1} bgColor="white" direction="column" align="center">
