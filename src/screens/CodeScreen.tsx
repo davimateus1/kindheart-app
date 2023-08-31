@@ -4,6 +4,8 @@ import { CustomButton, CustomHeader, CustomInput } from 'src/components';
 import { NavigationProp } from '@react-navigation/native';
 
 import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { CodeSchema, codeSchema } from 'src/schemas';
 import KindheartLogo from '../../assets/kindheart-logo.png';
 
 type CodeScreenProps = {
@@ -15,7 +17,10 @@ export function CodeScreen({ navigation }: CodeScreenProps) {
     control,
     formState: { errors },
     handleSubmit,
-  } = useForm();
+  } = useForm<CodeSchema>({
+    reValidateMode: 'onChange',
+    resolver: zodResolver(codeSchema),
+  });
 
   const handleGoBack = () => {
     navigation.goBack();
@@ -23,7 +28,7 @@ export function CodeScreen({ navigation }: CodeScreenProps) {
 
   const handleConfirmCode = handleSubmit(data => {
     console.log(data);
-    navigation.navigate('successScreen');
+    navigation.navigate('success');
   });
 
   return (
@@ -46,17 +51,18 @@ export function CodeScreen({ navigation }: CodeScreenProps) {
         <Text color="brand.50">Código de confirmação</Text>
         <CustomInput
           control={control}
-          name="firstName"
+          name="code"
           stackProps={{ w: '50%' }}
           inputProps={{
-            textAlign: 'center',
-            keyboardType: 'numeric',
-            maxLength: 6,
-            fontWeight: 'bold',
-            letterSpacing: 4,
             py: 3,
             fontSize: 24,
+            maxLength: 6,
+            letterSpacing: 4,
+            fontWeight: 'bold',
+            textAlign: 'center',
+            keyboardType: 'numeric',
           }}
+          errorStyle={{ justifyContent: 'center', alignItems: 'center' }}
           error={errors.code}
         />
       </Flex>

@@ -39,3 +39,11 @@ export const registerSchema = z.object({
 });
 
 export type RegisterSchema = z.infer<typeof registerSchema>;
+
+export const codeSchema = z.object({
+  code: z.string({ required_error: 'O código é obrigatório' }).min(6, {
+    message: 'O código deve conter 6 caracteres',
+  }),
+});
+
+export type CodeSchema = z.infer<typeof codeSchema>;

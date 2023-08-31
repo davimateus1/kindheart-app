@@ -199,7 +199,7 @@ export function RegisterScreen({ navigation }: RegisterScreenProps) {
             color="brand.100"
             onPress={handleRegister}
           >
-            Entrar
+            Cadastrar
           </CustomButton>
         </HStack>
       </ScrollView>

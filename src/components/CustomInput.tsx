@@ -5,7 +5,6 @@ import {
   FieldError,
   FieldErrorsImpl,
   Merge,
-  UseControllerProps,
   useController,
   FieldValues,
 } from 'react-hook-form';
@@ -16,12 +15,12 @@ export type InputProps = {
   name: string;
   control: ControllerProps<any>['control'];
   error?: FieldError | Merge<FieldError, FieldErrorsImpl<FieldValues>>;
-  rules?: UseControllerProps['rules'];
   mask?: Mask;
   inputProps?: IInputProps;
   stackProps?: IStackProps;
   labelProps?: ITextProps;
   isEditable?: boolean;
+  errorStyle?: ITextProps;
 };
 
 const defaultLabelStyle: ITextProps = {
@@ -33,16 +32,16 @@ function BaseInput({
   name,
   error,
   control,
-  rules = {},
   mask,
   inputProps,
   labelProps,
   isEditable = true,
   stackProps,
+  errorStyle,
 }: InputProps) {
   const {
     field: { onChange, value: valueInput },
-  } = useController({ name: name || '', control, rules });
+  } = useController({ name: name || '', control });
   const maskedInputProps = useMaskedInputProps({
     value: valueInput,
     onChangeText: text => {
@@ -78,7 +77,9 @@ function BaseInput({
           {...inputProps}
         />
 
-        {error && <FormControl.ErrorMessage>{error?.message}</FormControl.ErrorMessage>}
+        {error && (
+          <FormControl.ErrorMessage {...errorStyle}>{error?.message}</FormControl.ErrorMessage>
+        )}
       </FormControl>
     </Stack>
   );
