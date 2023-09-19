@@ -1,8 +1,14 @@
 import { useState } from 'react';
 import { Flex, HStack, Heading, Image, ScrollView, Text, useDisclose } from 'native-base';
-import { AntDesign, FontAwesome } from '@expo/vector-icons';
+import {
+  CameraAndGalery,
+  CustomButton,
+  CustomHeader,
+  CustomInput,
+  CustomSelect,
+} from 'src/components';
 
-import { CameraAndGalery, CustomButton, CustomHeader, CustomInput } from 'src/components';
+import { AntDesign, FontAwesome } from '@expo/vector-icons';
 import { NavigationProp } from '@react-navigation/native';
 import { useForm } from 'react-hook-form';
 
@@ -10,6 +16,7 @@ import { Masks } from 'react-native-mask-input';
 import { RegisterSchema, registerSchema } from 'src/schemas';
 import KindheartLogo from 'assets/kindheart-logo.png';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useCreateUser } from 'src/store';
 
 type RegisterScreenProps = {
   navigation: NavigationProp<Record<string, object | undefined>>;
@@ -17,6 +24,8 @@ type RegisterScreenProps = {
 
 export function RegisterScreen({ navigation }: RegisterScreenProps) {
   const { isOpen, onOpen, onClose } = useDisclose();
+  const { createUserMutate, createUserLoading } = useCreateUser();
+
   const [show, setShow] = useState({
     password: false,
     confirmPassword: false,
@@ -46,8 +55,19 @@ export function RegisterScreen({ navigation }: RegisterScreenProps) {
   };
 
   const handleRegister = handleSubmit(data => {
-    navigation.navigate('codeScreen');
-    console.log(data);
+    createUserMutate({
+      cpf: data.cpf,
+      email: data.email,
+      gender: data.gender,
+      address: data.address,
+      password: data.password,
+      photo: data.image || '',
+      last_name: data.lastName,
+      first_name: data.firstName,
+      personal_phone: data.personalPhone,
+      relative_phone: data.emergencyPhone,
+      birth_date: data.birthDate,
+    });
   });
 
   return (
@@ -85,7 +105,6 @@ export function RegisterScreen({ navigation }: RegisterScreenProps) {
               error={errors.lastName}
             />
           </Flex>
-
           <Flex direction="row" justify="space-between">
             <CustomInput
               control={control}
@@ -101,11 +120,11 @@ export function RegisterScreen({ navigation }: RegisterScreenProps) {
               name="cpf"
               stackProps={{ w: '47.5%' }}
               label="CPF"
+              inputProps={{ keyboardType: 'numeric' }}
               mask={Masks.BRL_CPF}
               error={errors.cpf}
             />
           </Flex>
-
           <Flex>
             <CustomInput
               control={control}
@@ -164,7 +183,6 @@ export function RegisterScreen({ navigation }: RegisterScreenProps) {
               onClose={onClose}
             />
           </Flex>
-
           <Flex direction="row" justify="space-between">
             <CustomInput
               control={control}
@@ -172,6 +190,7 @@ export function RegisterScreen({ navigation }: RegisterScreenProps) {
               label="Telefone pessoal"
               stackProps={{ w: '47.5%' }}
               mask={Masks.BRL_PHONE}
+              inputProps={{ keyboardType: 'numeric' }}
               error={errors.personalPhone}
             />
             <CustomInput
@@ -180,11 +199,11 @@ export function RegisterScreen({ navigation }: RegisterScreenProps) {
               label="Telefone secundário"
               stackProps={{ w: '47.5%' }}
               mask={Masks.BRL_PHONE}
+              inputProps={{ keyboardType: 'numeric' }}
               error={errors.emergencyPhone}
             />
           </Flex>
-
-          <Flex direction="row" justify="space-between">
+          <Flex direction="column" justify="space-between">
             <CustomInput
               control={control}
               name="address"
@@ -192,14 +211,43 @@ export function RegisterScreen({ navigation }: RegisterScreenProps) {
               inputProps={{ placeholder: 'Digite seu endereço' }}
               error={errors.address}
             />
+            <CustomSelect
+              control={control}
+              name="gender"
+              label="Gênero"
+              selectProps={{
+                placeholder: 'Selecione seu gênero',
+                _selectedItem: {
+                  bg: 'brand.50',
+                  endIcon: <AntDesign name="check" size={24} />,
+                },
+                defaultValue: 'NOT_INFORM',
+              }}
+              options={[
+                {
+                  label: 'Masculino',
+                  value: 'MALE',
+                },
+                {
+                  label: 'Feminino',
+                  value: 'FEMALE',
+                },
+                {
+                  label: 'Não informado',
+                  value: 'NOT_INFORM',
+                },
+              ]}
+            />
           </Flex>
+
           <CustomButton
-            w="100%"
-            mt={1}
             py={4}
-            bgColor="brand.50"
+            mt={1}
+            w="100%"
             color="brand.100"
+            bgColor="brand.50"
             onPress={handleRegister}
+            isLoading={createUserLoading}
           >
             Cadastrar
           </CustomButton>

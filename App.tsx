@@ -1,11 +1,15 @@
 import { NativeBaseProvider } from 'native-base';
-import { theme } from './src/theme';
-import { Routes } from './src/routes';
+import { QueryClientProvider } from '@tanstack/react-query';
+import { queryClient } from 'src/store/lib';
+import { Routes } from 'src/routes';
+import { theme } from 'src/theme';
 
 function App() {
   return (
     <NativeBaseProvider theme={theme}>
-      <Routes />
+      <QueryClientProvider client={queryClient}>
+        <Routes />
+      </QueryClientProvider>
     </NativeBaseProvider>
   );
 }

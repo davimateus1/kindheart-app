@@ -36,6 +36,7 @@ export const registerSchema = z.object({
   address: z.string({ required_error: 'O campo endereço é obrigatório' }).min(20, {
     message: 'Informe um endereço mais completo (ex: Rua, número, bairro, cidade, estado)',
   }),
+  gender: z.enum(['MALE', 'FEMALE', 'NOT_INFORM']),
 });
 
 export type RegisterSchema = z.infer<typeof registerSchema>;

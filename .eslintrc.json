@@ -34,6 +34,7 @@
         "endOfLine": "auto"
       }
     ],
+    
     "unused-imports/no-unused-imports": "error",
     "react/require-default-props": 0,
     "react/jsx-props-no-spreading": 0,
@@ -53,6 +54,6 @@
     "import/extensions": "off",
     "react/prop-types": 0,
     "no-shadow": "off",
-    "@typescript-eslint/no-shadow": ["error"]
+    "@typescript-eslint/no-shadow": ["off"]
   }
 }
