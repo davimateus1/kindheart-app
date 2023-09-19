@@ -13,3 +13,7 @@ export type CreateUserProps = {
   personal_phone: string;
   relative_phone: string;
 };
+
+export type CodeConfirmationProps = {
+  user_code: string;
+};

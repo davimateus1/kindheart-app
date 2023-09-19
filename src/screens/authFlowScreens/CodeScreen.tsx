@@ -7,12 +7,14 @@ import { useForm } from 'react-hook-form';
 import { CodeSchema, codeSchema } from 'src/schemas';
 import KindheartLogo from 'assets/kindheart-logo.png';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useCodeConfirmation } from 'src/store';
 
 type CodeScreenProps = {
   navigation: NavigationProp<Record<string, object | undefined>>;
 };
 
 export function CodeScreen({ navigation }: CodeScreenProps) {
+  const { confirmCodeMutate, confirmCodeLoading } = useCodeConfirmation();
   const {
     control,
     formState: { errors },
@@ -27,8 +29,7 @@ export function CodeScreen({ navigation }: CodeScreenProps) {
   };
 
   const handleConfirmCode = handleSubmit(data => {
-    console.log(data);
-    navigation.navigate('success');
+    confirmCodeMutate({ user_code: data.code });
   });
 
   return (
@@ -74,6 +75,7 @@ export function CodeScreen({ navigation }: CodeScreenProps) {
           bgColor="brand.50"
           color="brand.100"
           onPress={handleConfirmCode}
+          isLoading={confirmCodeLoading}
         >
           Confirmar
         </CustomButton>
