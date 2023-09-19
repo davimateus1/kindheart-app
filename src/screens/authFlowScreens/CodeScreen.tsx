@@ -7,7 +7,7 @@ import { useForm } from 'react-hook-form';
 import { CodeSchema, codeSchema } from 'src/schemas';
 import KindheartLogo from 'assets/kindheart-logo.png';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useCodeConfirmation } from 'src/store';
+import { sendCodeCredentialsStore, useCodeConfirmation, useSendCode } from 'src/store';
 
 type CodeScreenProps = {
   navigation: NavigationProp<Record<string, object | undefined>>;
@@ -15,6 +15,9 @@ type CodeScreenProps = {
 
 export function CodeScreen({ navigation }: CodeScreenProps) {
   const { confirmCodeMutate, confirmCodeLoading } = useCodeConfirmation();
+  const [credentials] = sendCodeCredentialsStore(state => [state.credentials]);
+  const { sendCodeMutate, sendCodeLoading } = useSendCode();
+
   const {
     control,
     formState: { errors },
@@ -31,6 +34,13 @@ export function CodeScreen({ navigation }: CodeScreenProps) {
   const handleConfirmCode = handleSubmit(data => {
     confirmCodeMutate({ user_code: data.code });
   });
+
+  const handleResendCode = () => {
+    sendCodeMutate({
+      first_name: credentials.first_name,
+      personal_phone: credentials.personal_phone,
+    });
+  };
 
   return (
     <Flex flex={1} bgColor="white" direction="column" align="center">
@@ -81,9 +91,20 @@ export function CodeScreen({ navigation }: CodeScreenProps) {
         </CustomButton>
         <Text color="brand.100" mt={2} fontSize="md">
           Não recebeu o código?{' '}
-          <Text color="brand.50" fontWeight="bold" textDecorationLine="underline">
-            Reenviar código
-          </Text>
+          {sendCodeLoading ? (
+            <Text color="brand.50" fontWeight="bold">
+              Enviando código...
+            </Text>
+          ) : (
+            <Text
+              color="brand.50"
+              fontWeight="bold"
+              textDecorationLine="underline"
+              onPress={handleResendCode}
+            >
+              Reenviar código
+            </Text>
+          )}
         </Text>
       </Flex>
     </Flex>

@@ -14,6 +14,15 @@ export type CreateUserProps = {
   relative_phone: string;
 };
 
+export type CreateUserResponse = CreateUserProps & {
+  user_code: string;
+};
+
 export type CodeConfirmationProps = {
   user_code: string;
+};
+
+export type SendCodeProps = {
+  first_name: string;
+  personal_phone: string;
 };
