@@ -10,7 +10,7 @@ type ToastProps = {
   description: string;
 };
 
-export const useCustomToast = () => {
+export function useCustomToast() {
   const toast = useToast();
 
   const getBackgroundColor = (status: Status) => {
@@ -72,4 +72,4 @@ export const useCustomToast = () => {
   };
 
   return { showSuccessToast, showErrorToast, showWarningToast };
-};
+}

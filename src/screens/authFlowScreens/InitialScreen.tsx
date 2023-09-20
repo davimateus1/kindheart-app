@@ -11,7 +11,7 @@ type InitialScreenProps = {
 
 export function InitialScreen({ navigation }: InitialScreenProps) {
   const handleNavigateToLogin = () => {
-    navigation.navigate('login');
+    navigation.navigate('Login');
   };
 
   return (

@@ -10,7 +10,7 @@ type UseSendCodeProps = {
   sendCodeMutate: UseMutateFunction<void, unknown, SendCodeProps, unknown>;
 };
 
-export const useSendCode = (): UseSendCodeProps => {
+export function useSendCode(): UseSendCodeProps {
   const { showSuccessToast, showErrorToast } = useCustomToast();
 
   const { mutate: sendCodeMutate, isLoading: sendCodeLoading } = useMutation({
@@ -32,4 +32,4 @@ export const useSendCode = (): UseSendCodeProps => {
   });
 
   return { sendCodeMutate, sendCodeLoading };
-};
+}

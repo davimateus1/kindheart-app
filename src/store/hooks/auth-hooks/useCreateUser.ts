@@ -12,7 +12,7 @@ type UseCreateUserProps = {
   createUserMutate: UseMutateFunction<CreateUserResponse, unknown, CreateUserProps, unknown>;
 };
 
-export const useCreateUser = (): UseCreateUserProps => {
+export function useCreateUser(): UseCreateUserProps {
   const { showSuccessToast, showErrorToast } = useCustomToast();
   const [setCredentials] = sendCodeCredentialsStore(state => [state.setCredentials]);
 
@@ -38,9 +38,9 @@ export const useCreateUser = (): UseCreateUserProps => {
       });
 
       queryClient.invalidateQueries(['users']);
-      navigate('codeScreen' as never);
+      navigate('CodeScreen' as never);
     },
   });
 
   return { createUserMutate, createUserLoading };
-};
+}

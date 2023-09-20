@@ -11,7 +11,7 @@ type UseCodeConfirmationProps = {
   confirmCodeMutate: UseMutateFunction<void, unknown, CodeConfirmationProps, unknown>;
 };
 
-export const useCodeConfirmation = (): UseCodeConfirmationProps => {
+export function useCodeConfirmation(): UseCodeConfirmationProps {
   const { showErrorToast } = useCustomToast();
   const { navigate } = useNavigation();
 
@@ -25,9 +25,9 @@ export const useCodeConfirmation = (): UseCodeConfirmationProps => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries(['users']);
-      navigate('success' as never);
+      navigate('Success' as never);
     },
   });
 
   return { confirmCodeMutate, confirmCodeLoading };
-};
+}

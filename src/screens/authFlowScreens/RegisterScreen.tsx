@@ -154,7 +154,7 @@ export function RegisterScreen({ navigation }: RegisterScreenProps) {
             />
           </Flex>
           <Flex align="center">
-            <Text color="brand.50" fontSize={15} mb={1} w="100%">
+            <Text color={errors.image ? 'red.500' : 'brand.50'} fontSize={15} mb={1} w="100%">
               Escolha sua foto de perfil
             </Text>
             {!!watch('image') && (
@@ -173,7 +173,7 @@ export function RegisterScreen({ navigation }: RegisterScreenProps) {
                 />
               </Flex>
             )}
-            <CustomButton w="100%" onPress={onOpen}>
+            <CustomButton w="100%" onPress={onOpen} bgColor={errors.image ? 'red.500' : 'brand.50'}>
               <Text color="white">Escolher foto</Text>
             </CustomButton>
 
@@ -182,6 +182,11 @@ export function RegisterScreen({ navigation }: RegisterScreenProps) {
               isOpen={isOpen}
               onClose={onClose}
             />
+            {errors.image && (
+              <Text color="red.500" fontSize={12} w="100%">
+                {errors.image?.message}
+              </Text>
+            )}
           </Flex>
           <Flex direction="row" justify="space-between">
             <CustomInput
@@ -213,6 +218,7 @@ export function RegisterScreen({ navigation }: RegisterScreenProps) {
             />
             <CustomSelect
               control={control}
+              error={errors.gender}
               name="gender"
               label="Gênero"
               selectProps={{
@@ -221,7 +227,6 @@ export function RegisterScreen({ navigation }: RegisterScreenProps) {
                   bg: 'brand.50',
                   endIcon: <AntDesign name="check" size={24} />,
                 },
-                defaultValue: 'NOT_INFORM',
               }}
               options={[
                 {

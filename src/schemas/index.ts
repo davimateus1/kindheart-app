@@ -24,7 +24,7 @@ export const registerSchema = z.object({
   password: z.string({ required_error: 'O campo senha é obrigatório' }).min(6, {
     message: 'A senha deve conter no mínimo 6 caracteres',
   }),
-  image: z.string().optional(),
+  image: z.string({ required_error: 'O upload de imagem é obrigatório' }),
   personalPhone: z.string({ required_error: 'O campo telefone pessoal é obrigatório' }).min(15, {
     message: 'O telefone deve conter 11 caracteres',
   }),
@@ -36,7 +36,9 @@ export const registerSchema = z.object({
   address: z.string({ required_error: 'O campo endereço é obrigatório' }).min(20, {
     message: 'Informe um endereço mais completo (ex: Rua, número, bairro, cidade, estado)',
   }),
-  gender: z.enum(['MALE', 'FEMALE', 'NOT_INFORM']),
+  gender: z.enum(['MALE', 'FEMALE', 'NOT_INFORM'], {
+    required_error: 'O campo gênero é obrigatório',
+  }),
 });
 
 export type RegisterSchema = z.infer<typeof registerSchema>;

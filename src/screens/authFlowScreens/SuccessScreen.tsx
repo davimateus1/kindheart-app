@@ -12,12 +12,12 @@ type SuccessScreenProps = {
 
 export function SuccessScreen({ navigation }: SuccessScreenProps) {
   const handleNavigateToLogin = () => {
-    navigation.navigate('login');
+    navigation.navigate('Login');
   };
 
   useEffect(
     () => () => {
-      navigation.navigate('login');
+      navigation.navigate('Login');
     },
     [navigation],
   );
@@ -27,7 +27,7 @@ export function SuccessScreen({ navigation }: SuccessScreenProps) {
       <Image source={KindheartLogo} alt="kindheart-logo" mt={2} />
       <Flex direction="column" w="100%" align="center" mt={2} justify="center" h="80%" px={5}>
         <Heading color="brand.100" size="2xl" textAlign="center">
-          Cadastro realizado com sucesso!
+          Conta verificada com sucesso!
         </Heading>
         <Image source={BigCheck} alt="kindheart-logo" mt={2} />
         <CustomButton

@@ -26,3 +26,12 @@ export type SendCodeProps = {
   first_name: string;
   personal_phone: string;
 };
+
+export type LoginUserProps = {
+  email: string;
+  password: string;
+};
+
+export type LoginUserResponse = CreateUserResponse & {
+  verified: boolean;
+};

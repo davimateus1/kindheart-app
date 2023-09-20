@@ -48,8 +48,8 @@ export function CustomSelect({
         {label && (
           <FormControl.Label {...defaultLabelStyle}>
             <Text
-              {...{ ...defaultLabelStyle, ...labelProps }}
               color={error ? 'red.500' : 'brand.50'}
+              {...{ ...defaultLabelStyle, ...labelProps }}
             >
               {label}
             </Text>

@@ -9,6 +9,7 @@ import { NavigationProp } from '@react-navigation/native';
 import { CustomButton, CustomInput } from 'src/components';
 import KindheartLogo from 'assets/kindheart-logo.png';
 import { LoginSchema, loginSchema } from 'src/schemas';
+import { useLoginUser } from 'src/store';
 
 type LoginScreenProps = {
   navigation: NavigationProp<Record<string, object | undefined>>;
@@ -16,6 +17,7 @@ type LoginScreenProps = {
 
 export function LoginScreen({ navigation }: LoginScreenProps) {
   const [showPassword, setShowPassword] = useState(false);
+  const { loginUserMutate, loginUserLoading } = useLoginUser();
 
   const {
     control,
@@ -27,7 +29,7 @@ export function LoginScreen({ navigation }: LoginScreenProps) {
   });
 
   const handleLogin = handleSubmit(data => {
-    console.log(data);
+    loginUserMutate(data);
   });
 
   const handleShowPassword = () => {
@@ -35,7 +37,7 @@ export function LoginScreen({ navigation }: LoginScreenProps) {
   };
 
   const handleNavigateToRegister = () => {
-    navigation.navigate('register');
+    navigation.navigate('Register');
   };
 
   return (
@@ -87,6 +89,7 @@ export function LoginScreen({ navigation }: LoginScreenProps) {
             py={4}
             bgColor="brand.50"
             color="brand.100"
+            isLoading={loginUserLoading}
           >
             Entrar
           </CustomButton>
