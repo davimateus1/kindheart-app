@@ -1,16 +1,17 @@
 import { Flex, Heading, Text } from 'native-base';
 import { ComponentProps } from 'react';
 
-type SimpleCardProps = {
+type InfoCardProps = {
   value: number;
   label: string;
 } & ComponentProps<typeof Flex>;
 
-export function SimpleCard({ value, label, ...rest }: SimpleCardProps) {
+export function InfoCard({ value, label, ...rest }: InfoCardProps) {
   return (
     <Flex
       direction="column"
-      p={3}
+      px={3}
+      py={5}
       w="30%"
       justify="center"
       align="center"
@@ -19,10 +20,10 @@ export function SimpleCard({ value, label, ...rest }: SimpleCardProps) {
       borderColor="brand.400"
       {...rest}
     >
-      <Heading color="brand.100" fontWeight="bold" fontSize="2xl" textAlign="center">
+      <Heading color="brand.100" fontWeight="bold" fontSize="3xl" textAlign="center">
         {value}
       </Heading>
-      <Text color="brand.400" fontSize="xs" fontWeight="bold" textAlign="center">
+      <Text color="brand.400" fontSize="sm" fontWeight="200" textAlign="center">
         {label}
       </Text>
     </Flex>

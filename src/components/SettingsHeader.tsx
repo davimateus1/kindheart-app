@@ -1,8 +1,6 @@
 import { Ionicons } from '@expo/vector-icons';
 import { Avatar, Flex, Heading, IconButton, Text } from 'native-base';
 import { useAuth } from 'src/contexts/auth';
-import { SimpleCard } from './SimpleCard';
-import { SettingOption } from './SettingsOption';
 
 export function SettingsHeader() {
   const { logout, user } = useAuth();
@@ -26,29 +24,6 @@ export function SettingsHeader() {
           variant="unstyled"
           icon={<Ionicons name="exit-outline" size={36} color="black" />}
           onPress={logout}
-        />
-      </Flex>
-      <Flex w="100%" direction="row" justify="space-between" mt={5}>
-        <SimpleCard label="Publicações" value={57} />
-        <SimpleCard label="Publicações" value={57} />
-        <SimpleCard label="Publicações" value={57} />
-      </Flex>
-      <Flex w="100%" direction="column" justify="space-between" mt={5}>
-        <SettingOption
-          title="Dicas com idosos"
-          description="Veja dicas indispensáveis com os idosos"
-          navigateFor="Tips"
-          onEmphasis
-        />
-        <SettingOption
-          title="Mensagens"
-          description="Interaja com suas conexões"
-          navigateFor="Messages"
-        />
-        <SettingOption
-          title="Estatuto do idoso"
-          description="Conheça os direitos valiosos dos idosos"
-          navigateFor="ElderlyStatute"
         />
       </Flex>
     </Flex>

@@ -8,9 +8,16 @@ type SettingOptionProps = {
   description: string;
   navigateFor: string;
   onEmphasis?: boolean;
+  messagesCount?: number;
 } & ComponentProps<typeof Flex>;
 
-export function SettingOption({ title, description, navigateFor, onEmphasis }: SettingOptionProps) {
+export function SettingOption({
+  title,
+  description,
+  navigateFor,
+  onEmphasis,
+  messagesCount,
+}: SettingOptionProps) {
   const { navigate } = useNavigation();
 
   const handleNavigate = () => {
@@ -24,10 +31,15 @@ export function SettingOption({ title, description, navigateFor, onEmphasis }: S
           {title}
         </Heading>
 
-        <Text color="brand.400" fontSize="sm" fontWeight="bold">
+        <Text color="brand.400" fontSize="sm" fontWeight="200">
           {description}
         </Text>
       </Flex>
+      {messagesCount && (
+        <Flex bg="secondary.50" borderRadius={50} w={7} h={7} justify="center" align="center">
+          <Text>{messagesCount}</Text>
+        </Flex>
+      )}
       <IconButton
         bg={onEmphasis ? 'brand.50' : 'transparent'}
         icon={

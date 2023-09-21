@@ -9,6 +9,9 @@ export const theme = extendTheme({
       300: '#EEEEEE',
       400: '#919191',
     },
+    secondary: {
+      50: '#FF6961',
+    },
   },
   config: {
     initialColorMode: 'dark',

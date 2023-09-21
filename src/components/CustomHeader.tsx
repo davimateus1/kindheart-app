@@ -24,7 +24,6 @@ export function CustomHeader({ icon, children, buttonProps, ...rest }: CustomHea
       <CustomButton w={12} h={12} {...buttonProps}>
         {icon}
       </CustomButton>
-
       {children}
     </Flex>
   );
