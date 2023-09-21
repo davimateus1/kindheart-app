@@ -2,6 +2,10 @@ import HandsIcon from 'assets/hands.png';
 import BalloonIcon from 'assets/chat-balloon.png';
 import SirenIcon from 'assets/siren.png';
 import TowelIcon from 'assets/towel.png';
+import HygieneImage from 'assets/hygiene.png';
+import SecurityImage from 'assets/security.png';
+import CommunicationImage from 'assets/communication.png';
+import EmergencyImage from 'assets/emergency.png';
 
 export const elderlyStatuteSection = [
   {
@@ -30,7 +34,7 @@ export const elderlyTipsSection = [
   {
     image: TowelIcon,
     title: 'Higiene',
-    path: 'Towel',
+    path: 'Hygiene',
   },
   {
     image: HandsIcon,
@@ -48,3 +52,56 @@ export const elderlyTipsSection = [
     path: 'Emergency',
   },
 ];
+
+export const hygieneTips = {
+  headTitle: 'Higiene',
+  title:
+    'A higiene adequada é essencial para manter o conforto e a saúde dos idosos. Aqui estão algumas dicas detalhadas sobre os cuidados necessários:',
+  image: HygieneImage,
+  list: [
+    'Auxilie na higiene diária, como banho, troca de roupas e escovação dos dentes, adaptando-se às preferências e necessidades do idoso.',
+    'Mantenha a pele limpa e seca, prestando atenção especial a áreas de dobras, como axilas e virilhas. Use produtos suaves e hidratantes.',
+    'Realize a higiene íntima de forma delicada e respeitosa, utilizando produtos específicos e seguindo as preferências do idoso.',
+    'Assegure a higiene das mãos antes e após qualquer procedimento de cuidado, utilizando água e sabão ou desinfetante para as mãos.',
+  ],
+};
+
+export const securityTips = {
+  headTitle: 'Segurança',
+  title:
+    'A segurança é primordial para a proteção dos idosos. Aqui estão algumas medidas importantes a serem consideradas:',
+  image: SecurityImage,
+  list: [
+    'Garanta um ambiente livre de obstáculos e bem iluminado para evitar quedas e acidentes. Remova tapetes soltos, cabos elétricos e outros objetos que possam representar riscos.',
+    'Verifique a segurança dos pisos, tapetes e corrimãos, fazendo ajustes quando necessário. Certifique-se de que os corrimãos estejam firmes e os tapetes bem fixados.',
+    'Mantenha os medicamentos organizados e armazenados em locais seguros, seguindo corretamente as prescrições médicas e verificando regularmente as datas de validade.',
+    'Forneça orientações sobre o uso de dispositivos de auxílio à mobilidade, como bengalas ou andadores, quando necessário, garantindo que estejam em boas condições.',
+  ],
+};
+
+export const communicationTips = {
+  headTitle: 'Comunicação e atenção',
+  title:
+    'Uma comunicação efetiva e atenção adequada são fundamentais para o bem-estar emocional dos idosos. Considere as seguintes dicas:',
+  image: CommunicationImage,
+  list: [
+    'Demonstre interesse genuíno pelo idoso, ouvindo com atenção suas histórias, pensamentos e sentimentos. Mostre empatia e valide suas experiências.',
+    'Utilize uma linguagem clara e adaptada ao nível de compreensão do idoso, evitando termos complexos e falando pausadamente.',
+    'Estabeleça uma conexão afetiva, transmitindo segurança, carinho e respeito. Mostre-se disponível para conversar e ofereça apoio emocional.',
+    'Respeite a privacidade do idoso, garantindo momentos de tranquilidade quando necessário. Esteja atento aos sinais de cansaço ou necessidade de descanso.',
+    'Esteja presente e demonstre interesse ativo na comunicação não verbal, como contato visual, expressões faciais e linguagem corporal. Isso mostra que você está verdadeiramente engajado na interação.',
+  ],
+};
+
+export const emergencyTips = {
+  headTitle: 'Emergência',
+  title:
+    'Estar preparado para situações de emergência é fundamental ao cuidar de um idoso. Aqui estão algumas orientações importantes a serem seguidas:',
+  image: EmergencyImage,
+  list: [
+    'Mantenha contatos de emergência visíveis e de fácil acesso, como números de telefone de serviços de saúde, familiares e do médico do idoso.',
+    'Conheça os sinais de alerta de emergência, como falta de ar, dor súbita, confusão mental intensa ou perda de consciência. Saiba quando buscar ajuda médica imediatamente.',
+    'Tenha um kit de primeiros socorros disponível e saiba como utilizá-lo corretamente. Inclua itens essenciais, como curativos, desinfetantes, termômetro e medicamentos de uso comum.',
+    'Mantenha-se atualizado sobre os procedimentos de emergência, como RCP (ressuscitação cardiopulmonar) e manobras de desobstrução das vias aéreas. Saiba como agir em situações de emergência, como engasgo, parada cardíaca ou convulsão. Esteja preparado para agir rapidamente e salvar vidas.',
+  ],
+};

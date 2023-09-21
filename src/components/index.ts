@@ -7,3 +7,4 @@ export * from './CustomSelect';
 export * from './SettingsHeader';
 export * from './SettingsOption';
 export * from './CameraAndGalery';
+export * from './CustomScreen';
