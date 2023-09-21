@@ -5,7 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import { createUser } from 'src/store/requests';
 import { queryClient } from 'src/store/lib';
 import { useCustomToast } from 'src/hooks';
-import { sendCodeCredentialsStore } from 'src/store';
+import { sendCodeCredentialsStore } from 'src/store/actions';
 
 type UseCreateUserProps = {
   createUserLoading: boolean;

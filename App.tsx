@@ -3,12 +3,15 @@ import { QueryClientProvider } from '@tanstack/react-query';
 import { queryClient } from 'src/store/lib';
 import { Routes } from 'src/routes';
 import { theme } from 'src/theme';
+import { AuthProvider } from 'src/contexts/auth';
 
 function App() {
   return (
     <NativeBaseProvider theme={theme}>
       <QueryClientProvider client={queryClient}>
-        <Routes />
+        <AuthProvider>
+          <Routes />
+        </AuthProvider>
       </QueryClientProvider>
     </NativeBaseProvider>
   );

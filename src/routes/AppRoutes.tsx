@@ -1,33 +1,43 @@
 import { createStackNavigator } from '@react-navigation/stack';
-import { useCallback, useEffect, useState } from 'react';
-import { useAsyncStorage } from 'src/hooks';
+import { useAuth } from 'src/contexts/auth';
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
+import { useEffect } from 'react';
 import { AuthRoutes } from './authRoutes';
 import { HomeRoutes } from './homeRoutes';
 
-const { Navigator: StackNavigator, Screen: StackScreen } = createStackNavigator();
+const { Navigator: AuthNavigator, Screen: AuthScreen } = createStackNavigator();
+const { Navigator: HomeNavigator, Screen: HomeScreen } = createStackNavigator();
 
-function AppRoutes() {
-  const { getData } = useAsyncStorage();
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-
-  const checkAuth = useCallback(async () => {
-    const token = await getData('token');
-    setIsAuthenticated(!!token);
-  }, [getData]);
+function LoadingNavigator() {
+  const { active } = useAuth();
+  const navigation = useNavigation();
 
   useEffect(() => {
-    checkAuth();
-  }, [checkAuth]);
+    if (!active) {
+      navigation.navigate('CodeScreen' as never);
+    }
+  }, [active, navigation]);
+
+  return null;
+}
+
+function AppNavigator() {
+  const { user } = useAuth();
 
   return (
-    <StackNavigator screenOptions={{ headerShown: false }}>
-      {isAuthenticated ? (
-        <StackScreen name="Home" component={HomeRoutes} />
+    <NavigationContainer>
+      {user ? (
+        <HomeNavigator screenOptions={{ headerShown: false }}>
+          <HomeScreen name="HomeRoutes" component={HomeRoutes} />
+        </HomeNavigator>
       ) : (
-        <StackScreen name="Auth" component={AuthRoutes} />
+        <AuthNavigator screenOptions={{ headerShown: false }}>
+          <AuthScreen name="AuthRoutes" component={AuthRoutes} />
+        </AuthNavigator>
       )}
-    </StackNavigator>
+      <LoadingNavigator />
+    </NavigationContainer>
   );
 }
 
-export default AppRoutes;
+export default AppNavigator;

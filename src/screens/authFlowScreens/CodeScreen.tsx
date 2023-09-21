@@ -7,7 +7,10 @@ import { useForm } from 'react-hook-form';
 import { CodeSchema, codeSchema } from 'src/schemas';
 import KindheartLogo from 'assets/kindheart-logo.png';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { sendCodeCredentialsStore, useCodeConfirmation, useSendCode } from 'src/store';
+import { useCodeConfirmation, useSendCode } from 'src/store';
+import { sendCodeCredentialsStore } from 'src/store/actions';
+import { useAuth } from 'src/contexts/auth';
+import { useEffect } from 'react';
 
 type CodeScreenProps = {
   navigation: NavigationProp<Record<string, object | undefined>>;
@@ -17,6 +20,7 @@ export function CodeScreen({ navigation }: CodeScreenProps) {
   const { confirmCodeMutate, confirmCodeLoading } = useCodeConfirmation();
   const [credentials] = sendCodeCredentialsStore(state => [state.credentials]);
   const { sendCodeMutate, sendCodeLoading } = useSendCode();
+  const { active, setActive } = useAuth();
 
   const {
     control,
@@ -41,6 +45,15 @@ export function CodeScreen({ navigation }: CodeScreenProps) {
       personal_phone: credentials.personal_phone,
     });
   };
+
+  useEffect(
+    () => () => {
+      if (!active) {
+        setActive(true);
+      }
+    },
+    [active, setActive],
+  );
 
   return (
     <Flex flex={1} bgColor="white" direction="column" align="center">

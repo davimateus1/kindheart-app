@@ -9,7 +9,8 @@ import { NavigationProp } from '@react-navigation/native';
 import { CustomButton, CustomInput } from 'src/components';
 import KindheartLogo from 'assets/kindheart-logo.png';
 import { LoginSchema, loginSchema } from 'src/schemas';
-import { useLoginUser } from 'src/store';
+
+import { useAuth } from 'src/contexts/auth';
 
 type LoginScreenProps = {
   navigation: NavigationProp<Record<string, object | undefined>>;
@@ -17,7 +18,8 @@ type LoginScreenProps = {
 
 export function LoginScreen({ navigation }: LoginScreenProps) {
   const [showPassword, setShowPassword] = useState(false);
-  const { loginUserMutate, loginUserLoading } = useLoginUser();
+  const [loginUserLoading, setLoginUserLoading] = useState(false);
+  const { login } = useAuth();
 
   const {
     control,
@@ -28,8 +30,10 @@ export function LoginScreen({ navigation }: LoginScreenProps) {
     resolver: zodResolver(loginSchema),
   });
 
-  const handleLogin = handleSubmit(data => {
-    loginUserMutate(data);
+  const handleLogin = handleSubmit(async data => {
+    setLoginUserLoading(true);
+    await login(data);
+    setLoginUserLoading(false);
   });
 
   const handleShowPassword = () => {
