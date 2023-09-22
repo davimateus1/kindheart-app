@@ -15,7 +15,7 @@ export function SettingsHeader() {
               {user?.first_name} {user?.last_name}
             </Heading>
 
-            <Text color="brand.400" fontSize="sm" fontWeight="200">
+            <Text color="brand.400" fontSize="sm" fontWeight="400">
               {user?.email}
             </Text>
           </Flex>

@@ -2,6 +2,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { InitialScreen } from 'src/screens';
 import { Ionicons } from '@expo/vector-icons';
 import { SettingsScreens } from '../settingsRoutes';
+import { ProfileScreens } from '../profileRoutes';
 
 const { Navigator: TabNavigator, Screen: TabScreen } = createBottomTabNavigator();
 
@@ -26,7 +27,7 @@ export function HomeRoutes() {
             case 'AllSettings':
               iconName = focused ? 'settings' : 'settings-outline';
               break;
-            case 'Profile':
+            case 'ProfileInfos':
               iconName = focused ? 'person' : 'person-outline';
               break;
             default:
@@ -42,7 +43,7 @@ export function HomeRoutes() {
       <TabScreen name="Home" component={InitialScreen} />
       <TabScreen name="Messages" component={InitialScreen} />
       <TabScreen name="AllSettings" component={SettingsScreens} />
-      <TabScreen name="Profile" component={InitialScreen} />
+      <TabScreen name="ProfileInfos" component={ProfileScreens} />
     </TabNavigator>
   );
 }

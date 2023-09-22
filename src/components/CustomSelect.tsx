@@ -17,7 +17,7 @@ interface InputProps {
   label?: string;
   name: string;
   control: Control<any>;
-  options: Option[];
+  options: Array<Option>;
   error?: FieldError | Merge<FieldError, FieldErrorsImpl<any>>;
   selectProps?: ISelectProps;
   rules?: UseControllerProps['rules'];

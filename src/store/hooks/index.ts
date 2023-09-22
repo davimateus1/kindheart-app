@@ -1,1 +1,2 @@
-export * from './auth-hooks';
+export * from './authHooks';
+export * from './usersHooks';

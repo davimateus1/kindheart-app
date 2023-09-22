@@ -25,13 +25,13 @@ export function SettingOption({
   };
 
   return (
-    <Flex direction="row" justify="space-between" align="center" p={3}>
+    <Flex direction="row" justify="space-between" align="center" p={3} mt={2.5}>
       <Flex>
         <Heading color="brand.100" fontWeight="500" fontSize="lg">
           {title}
         </Heading>
 
-        <Text color="brand.400" fontSize="xs" fontWeight="300">
+        <Text color="brand.400" fontSize={12.5} fontWeight="500">
           {description}
         </Text>
       </Flex>
@@ -51,7 +51,7 @@ export function SettingOption({
         }
         borderWidth={1}
         borderColor="brand.300"
-        borderRadius={50}
+        rounded="full"
         onPress={handleNavigate}
       />
     </Flex>

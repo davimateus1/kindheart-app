@@ -1,3 +1,5 @@
+import { RoleType } from '../authTypes';
+
 export type User = {
   address: string;
   birth_date: string;
@@ -12,7 +14,7 @@ export type User = {
   personal_phone: string;
   photo: string;
   relative_phone: string;
-  role: string;
+  role: RoleType;
   updated_at: string;
   user_code: string;
   verified: boolean;

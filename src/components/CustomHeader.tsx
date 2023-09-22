@@ -3,7 +3,7 @@ import { ComponentProps, ReactNode } from 'react';
 import { CustomButton } from './CustomButton';
 
 type CustomHeaderProps = {
-  icon: ReactNode;
+  icon?: ReactNode;
   children?: ReactNode;
   buttonProps?: ComponentProps<typeof Button>;
 } & ComponentProps<typeof Flex>;
@@ -12,7 +12,7 @@ export function CustomHeader({ icon, children, buttonProps, ...rest }: CustomHea
   return (
     <Flex
       w="100%"
-      justify="space-between"
+      justify={icon ? 'space-between' : 'flex-end'}
       px={5}
       pb={2}
       borderBottomWidth={1}
@@ -21,9 +21,11 @@ export function CustomHeader({ icon, children, buttonProps, ...rest }: CustomHea
       align="center"
       {...rest}
     >
-      <CustomButton w={12} h={12} {...buttonProps}>
-        {icon}
-      </CustomButton>
+      {icon && (
+        <CustomButton w={12} h={12} {...buttonProps}>
+          {icon}
+        </CustomButton>
+      )}
       {children}
     </Flex>
   );
