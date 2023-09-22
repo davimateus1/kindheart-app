@@ -4,10 +4,10 @@
     "slug": "kindheart-app",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/kindheart-logo.png",
+    "icon": "./assets/images/kindheart-logo.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/kindheart-logo.png",
+      "image": "./assets/images/kindheart-logo.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -19,12 +19,12 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/splash.png",
+        "foregroundImage": "./assets/images/splash.png",
         "backgroundColor": "#ffffff"
       }
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/images/favicon.png"
     }
   }
 }

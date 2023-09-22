@@ -2,8 +2,8 @@ import React from 'react';
 import { Flex, Heading, Image, Text } from 'native-base';
 import { NavigationProp } from '@react-navigation/native';
 import { CustomButton } from 'src/components';
-import KindheartLogo from 'assets/kindheart-logo.png';
-import ElderlyLogo from 'assets/elderly-detail.png';
+import KindheartLogo from 'assets/images/kindheart-logo.png';
+import ElderlyLogo from 'assets/images/elderly-detail.png';
 
 type InitialScreenProps = {
   navigation: NavigationProp<Record<string, object | undefined>>;
@@ -19,7 +19,7 @@ export function InitialScreen({ navigation }: InitialScreenProps) {
       <Image source={ElderlyLogo} alt="elderly-logo" w="100%" h="50%" />
       <Image source={KindheartLogo} alt="kindheart-logo" mt={5} />
       <Flex direction="column" w="100%" align="center">
-        <Heading color="brand.100" size="2xl" maxW="50%" textAlign="center">
+        <Heading color="brand.100" size="xl" maxW="50%" textAlign="center">
           Conectando gerações
         </Heading>
         <Text color="brand.200" maxW="60%" textAlign="center" mt={5}>

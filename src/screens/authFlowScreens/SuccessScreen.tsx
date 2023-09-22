@@ -1,6 +1,6 @@
 import { Flex, Heading, Image } from 'native-base';
-import KindheartLogo from 'assets/kindheart-logo.png';
-import BigCheck from 'assets/big-check-icon.png';
+import KindheartLogo from 'assets/images/kindheart-logo.png';
+import BigCheck from 'assets/images/big-check-icon.png';
 
 import { CustomButton } from 'src/components';
 import { NavigationProp } from '@react-navigation/native';
@@ -26,7 +26,7 @@ export function SuccessScreen({ navigation }: SuccessScreenProps) {
     <Flex flex={1} bgColor="white" direction="column" align="center">
       <Image source={KindheartLogo} alt="kindheart-logo" mt={2} />
       <Flex direction="column" w="100%" align="center" mt={2} justify="center" h="80%" px={5}>
-        <Heading color="brand.100" size="2xl" textAlign="center">
+        <Heading color="brand.100" size="xl" textAlign="center">
           Conta verificada com sucesso!
         </Heading>
         <Image source={BigCheck} alt="kindheart-logo" mt={2} />

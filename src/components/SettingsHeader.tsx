@@ -11,11 +11,11 @@ export function SettingsHeader() {
         <Flex direction="row" align="center">
           <Avatar source={{ uri: user?.photo }} size="lg" bg="red.100" mr={2} />
           <Flex>
-            <Heading color="brand.100" fontWeight="bold" fontSize="lg">
+            <Heading color="brand.100" fontWeight="500" fontSize="lg">
               {user?.first_name} {user?.last_name}
             </Heading>
 
-            <Text color="brand.400" fontSize="sm" fontWeight="bold">
+            <Text color="brand.400" fontSize="sm" fontWeight="200">
               {user?.email}
             </Text>
           </Flex>

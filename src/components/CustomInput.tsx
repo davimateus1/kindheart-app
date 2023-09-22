@@ -72,7 +72,8 @@ function BaseInput({
           color={error ? 'red.500' : 'brand.100'}
           borderWidth={1}
           borderRadius={7}
-          fontSize={13}
+          fontSize={12.5}
+          numberOfLines={1}
           {...maskedInputProps}
           {...inputProps}
         />

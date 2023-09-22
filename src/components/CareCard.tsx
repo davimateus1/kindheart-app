@@ -39,7 +39,7 @@ export function CareCard({ title, image, navigateFor, ...rest }: CareCardProps) 
         alignItems="center"
       >
         <Image source={image} alt={`${image}-alt`} my={5} w="55%" />
-        <Heading color="brand.400" fontWeight="200" fontSize="lg" textAlign="center">
+        <Heading color="brand.400" fontWeight="500" fontSize="lg" textAlign="center">
           {title}
         </Heading>
       </Pressable>

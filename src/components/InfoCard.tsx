@@ -12,7 +12,7 @@ export function InfoCard({ value, label, ...rest }: InfoCardProps) {
       direction="column"
       px={3}
       py={5}
-      w="30%"
+      w="32%"
       justify="center"
       align="center"
       borderRadius={20}
@@ -20,10 +20,10 @@ export function InfoCard({ value, label, ...rest }: InfoCardProps) {
       borderColor="brand.400"
       {...rest}
     >
-      <Heading color="brand.100" fontWeight="bold" fontSize="3xl" textAlign="center">
+      <Heading color="brand.100" fontWeight="500" fontSize="3xl" textAlign="center">
         {value}
       </Heading>
-      <Text color="brand.400" fontSize="sm" fontWeight="200" textAlign="center">
+      <Text color="brand.400" fontSize="sm" fontWeight="400" textAlign="center">
         {label}
       </Text>
     </Flex>

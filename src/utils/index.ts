@@ -1,11 +1,11 @@
-import HandsIcon from 'assets/hands.png';
-import BalloonIcon from 'assets/chat-balloon.png';
-import SirenIcon from 'assets/siren.png';
-import TowelIcon from 'assets/towel.png';
-import HygieneImage from 'assets/hygiene.png';
-import SecurityImage from 'assets/security.png';
-import CommunicationImage from 'assets/communication.png';
-import EmergencyImage from 'assets/emergency.png';
+import HandsIcon from 'assets/images/hands.png';
+import BalloonIcon from 'assets/images/chat-balloon.png';
+import SirenIcon from 'assets/images/siren.png';
+import TowelIcon from 'assets/images/towel.png';
+import HygieneImage from 'assets/images/hygiene.png';
+import SecurityImage from 'assets/images/security.png';
+import CommunicationImage from 'assets/images/communication.png';
+import EmergencyImage from 'assets/images/emergency.png';
 
 export const elderlyStatuteSection = [
   {

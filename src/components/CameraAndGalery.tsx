@@ -40,12 +40,12 @@ export function CameraAndGalery({ isOpen, onClose, handleSelectImage }: CameraAn
       if (!result.canceled && file && base64) {
         handleSelectImage(base64);
         onClose();
-      }
 
-      showSuccessToast({
-        title: 'Sucesso ao tirar foto',
-        description: 'Sua foto foi tirada com sucesso e já está disponível para ser usada',
-      });
+        showSuccessToast({
+          title: 'Sucesso ao tirar foto',
+          description: 'Sua foto foi tirada com sucesso e já está disponível para ser usada',
+        });
+      }
     } else {
       showErrorToast({
         title: 'Permissão negada',
@@ -79,12 +79,12 @@ export function CameraAndGalery({ isOpen, onClose, handleSelectImage }: CameraAn
       if (!result.canceled && file && base64) {
         handleSelectImage(base64);
         onClose();
-      }
 
-      showSuccessToast({
-        title: 'Sucesso ao selecionar foto',
-        description: 'Sua foto foi selecionada com sucesso e já está disponível para ser usada',
-      });
+        showSuccessToast({
+          title: 'Sucesso ao selecionar foto',
+          description: 'Sua foto foi selecionada com sucesso e já está disponível para ser usada',
+        });
+      }
     } else {
       showErrorToast({
         title: 'Permissão negada',

@@ -7,7 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { NavigationProp } from '@react-navigation/native';
 
 import { CustomButton, CustomInput } from 'src/components';
-import KindheartLogo from 'assets/kindheart-logo.png';
+import KindheartLogo from 'assets/images/kindheart-logo.png';
 import { LoginSchema, loginSchema } from 'src/schemas';
 
 import { useAuth } from 'src/contexts/auth';
@@ -48,7 +48,7 @@ export function LoginScreen({ navigation }: LoginScreenProps) {
     <Flex flex={1} bgColor="white" direction="column" align="center">
       <Image source={KindheartLogo} alt="kindheart-logo" mt={5} />
       <Flex direction="column" w="100%" align="center">
-        <Heading color="brand.100" size="2xl" maxW="50%" textAlign="center">
+        <Heading color="brand.100" size="xl" maxW="50%" textAlign="center">
           Bem vindo!
         </Heading>
         <Text color="brand.200" maxW="60%" textAlign="center" mt={3}>

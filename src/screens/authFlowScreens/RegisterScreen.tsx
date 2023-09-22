@@ -14,7 +14,7 @@ import { useForm } from 'react-hook-form';
 
 import { Masks } from 'react-native-mask-input';
 import { RegisterSchema, registerSchema } from 'src/schemas';
-import KindheartLogo from 'assets/kindheart-logo.png';
+import KindheartLogo from 'assets/images/kindheart-logo.png';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useCreateUser } from 'src/store';
 
@@ -78,10 +78,10 @@ export function RegisterScreen({ navigation }: RegisterScreenProps) {
       />
       <Image source={KindheartLogo} alt="kindheart-logo" mt={2} />
       <Flex direction="column" w="100%" align="center" mt={2}>
-        <Heading color="brand.100" size="2xl" textAlign="center">
+        <Heading color="brand.100" size="xl" textAlign="center">
           Crie sua conta
         </Heading>
-        <Text color="brand.200" maxW="40%" textAlign="center" mt={3}>
+        <Text color="brand.200" maxW="60%" textAlign="center" mt={3}>
           Um gesto de amor que ecoa para sempre!
         </Text>
       </Flex>

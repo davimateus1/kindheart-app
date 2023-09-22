@@ -24,18 +24,18 @@ export function CustomScreen({ image, title, list, headTitle }: CustomScreenProp
         icon={<AntDesign name="arrowleft" size={20} color="white" />}
         buttonProps={{ onPress: handleGoBack }}
       >
-        <Heading color="brand.100" fontWeight="bold" fontSize="lg" textAlign="center">
+        <Heading color="brand.100" fontWeight="500" fontSize="lg" textAlign="center">
           {headTitle}
         </Heading>
       </CustomHeader>
       <ScrollView w="100%" overScrollMode="never">
         <Image source={image} alt="kindheart-logo" my={5} w="100%" resizeMode="contain" h={200} />
         <Flex direction="column" align="flex-start" px={5} py={2}>
-          <Heading color="brand.100" fontWeight="bold" fontSize="xl" mb={2}>
+          <Heading color="brand.100" fontWeight="500" fontSize="xl" mb={2}>
             {title}
           </Heading>
           {list.map(item => (
-            <Text color="brand.400" fontWeight="200" fontSize="md" key={item} my={1}>
+            <Text color="brand.400" fontWeight="400" fontSize="md" key={item} my={1}>
               • {item}
             </Text>
           ))}

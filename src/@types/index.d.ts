@@ -1,5 +1,5 @@
 declare module '*.png';
-declare module 'react-native-smooth-pincode-input';
+declare module '*.ttf';
 
 declare module '@env' {
   export const APP_NAME: string;

@@ -27,11 +27,11 @@ export function SettingOption({
   return (
     <Flex direction="row" justify="space-between" align="center" p={3}>
       <Flex>
-        <Heading color="brand.100" fontWeight="bold" fontSize="lg">
+        <Heading color="brand.100" fontWeight="500" fontSize="lg">
           {title}
         </Heading>
 
-        <Text color="brand.400" fontSize="sm" fontWeight="200">
+        <Text color="brand.400" fontSize="xs" fontWeight="300">
           {description}
         </Text>
       </Flex>

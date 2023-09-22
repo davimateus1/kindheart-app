@@ -84,7 +84,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
       showSuccessToast({
         title: 'Login realizado com sucesso',
-        description: 'Seja bem-vindo! Comece a transformar a sua vida agora mesmo.',
+        description: 'Seja bem-vindo! Comece a transformar a vida das pessoas agora mesmo!',
       });
     } catch {
       showErrorToast({

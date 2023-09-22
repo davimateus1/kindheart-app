@@ -5,7 +5,7 @@ import { NavigationProp } from '@react-navigation/native';
 
 import { useForm } from 'react-hook-form';
 import { CodeSchema, codeSchema } from 'src/schemas';
-import KindheartLogo from 'assets/kindheart-logo.png';
+import KindheartLogo from 'assets/images/kindheart-logo.png';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useCodeConfirmation, useSendCode } from 'src/store';
 import { sendCodeCredentialsStore } from 'src/store/actions';
@@ -55,6 +55,13 @@ export function CodeScreen({ navigation }: CodeScreenProps) {
     [active, setActive],
   );
 
+  useEffect(
+    () => () => {
+      navigation.navigate('Login');
+    },
+    [navigation],
+  );
+
   return (
     <Flex flex={1} bgColor="white" direction="column" align="center">
       <CustomHeader
@@ -63,7 +70,7 @@ export function CodeScreen({ navigation }: CodeScreenProps) {
       />
       <Image source={KindheartLogo} alt="kindheart-logo" mt={2} />
       <Flex direction="column" w="100%" align="center" mt={2}>
-        <Heading color="brand.100" size="2xl" textAlign="center">
+        <Heading color="brand.100" size="xl" textAlign="center">
           Confirme o código recebido
         </Heading>
         <Text color="brand.200" maxW="80%" textAlign="center" mt={3}>

@@ -3,7 +3,7 @@ import { NavigationProp } from '@react-navigation/native';
 import { Flex, Heading, Image, ScrollView, Text } from 'native-base';
 import { CareCard, CustomHeader } from 'src/components';
 
-import KindheartLogo from 'assets/kindheart-logo.png';
+import KindheartLogo from 'assets/images/kindheart-logo.png';
 import { elderlyTipsSection } from 'src/utils';
 
 type ElderlyTipsScreenProps = {
@@ -24,7 +24,7 @@ export function ElderlyTipsScreen({ navigation }: ElderlyTipsScreenProps) {
         icon={<AntDesign name="arrowleft" size={20} color="white" />}
         buttonProps={{ onPress: handleGoBack }}
       >
-        <Heading color="brand.100" fontWeight="bold" fontSize="lg" textAlign="center">
+        <Heading color="brand.100" fontWeight="500" fontSize="lg" textAlign="center">
           Cuidados Essenciais
         </Heading>
       </CustomHeader>
@@ -51,7 +51,7 @@ export function ElderlyTipsScreen({ navigation }: ElderlyTipsScreenProps) {
               />
             ))}
           </Flex>
-          <Text color="brand.400" fontWeight="200" fontSize="md" my={6}>
+          <Text color="brand.400" fontWeight="400" fontSize="md" my={6}>
             Aqui você encontrará informações importantes sobre diferentes aspectos do cuidado
             adequado aos idosos. Nossa intenção é fornecer orientações relevantes para garantir o
             bem-estar e a qualidade de vida dos idosos.
