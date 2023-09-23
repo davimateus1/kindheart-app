@@ -6,7 +6,7 @@ import { ProfileScreens } from '../profileRoutes';
 
 const { Navigator: TabNavigator, Screen: TabScreen } = createBottomTabNavigator();
 
-export function HomeRoutes() {
+export function TabRoutes() {
   return (
     <TabNavigator
       screenOptions={({ route }) => ({

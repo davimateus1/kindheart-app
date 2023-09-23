@@ -1,4 +1,4 @@
-import { Ionicons } from '@expo/vector-icons';
+import { AntDesign, Ionicons } from '@expo/vector-icons';
 import { NavigationProp, RouteProp } from '@react-navigation/native';
 import { Avatar, Divider, Flex, Heading, Image, ScrollView, Spinner, Text } from 'native-base';
 import { RoleType } from 'src/@types/authTypes';
@@ -14,15 +14,12 @@ type ProfileScreenProps = {
         userId: number;
         userType: RoleType;
       }
-    >,
-    'ProfileScreen'
+    >
   >;
   navigation: NavigationProp<Record<string, object>>;
 };
 
 export function ProfileScreen({ route, navigation }: ProfileScreenProps) {
-  console.log(navigation); // TODO: remove this line after use
-
   const { params } = route;
   const { user } = useAuth();
 
@@ -41,9 +38,16 @@ export function ProfileScreen({ route, navigation }: ProfileScreenProps) {
   const activitiesCount = userProfile?.activities_voluntary.length ?? 0;
   const reviewsCount = userProfile?.user_reviews.length ?? 0;
 
+  const handleGoBack = () => {
+    navigation.goBack();
+  };
+
   return (
     <Flex flex={1} bgColor="white" direction="column" align="center">
-      <CustomHeader>
+      <CustomHeader
+        icon={params?.userId ? <AntDesign name="arrowleft" size={20} color="white" /> : ''}
+        buttonProps={{ onPress: params?.userId ? handleGoBack : () => null }}
+      >
         <Heading color="brand.100" fontWeight="500" fontSize="lg" textAlign="center">
           {!isLoading && `Perfil de ${userProfile?.first_name}`}
         </Heading>

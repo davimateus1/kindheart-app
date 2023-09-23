@@ -1,9 +1,10 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import { useAuth } from 'src/contexts/auth';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
-import { useEffect } from 'react';
+import { ComponentType, useEffect } from 'react';
+import { ProfileScreen } from 'src/screens';
 import { AuthRoutes } from './authRoutes';
-import { HomeRoutes } from './homeRoutes';
+import { TabRoutes } from './homeRoutes';
 
 const { Navigator: AuthNavigator, Screen: AuthScreen } = createStackNavigator();
 const { Navigator: HomeNavigator, Screen: HomeScreen } = createStackNavigator();
@@ -28,7 +29,8 @@ function AppNavigator() {
     <NavigationContainer>
       {user ? (
         <HomeNavigator screenOptions={{ headerShown: false }}>
-          <HomeScreen name="HomeRoutes" component={HomeRoutes} />
+          <HomeScreen name="TabRoutes" component={TabRoutes} />
+          <HomeScreen name="OtherUserProfile" component={ProfileScreen as ComponentType<unknown>} />
         </HomeNavigator>
       ) : (
         <AuthNavigator screenOptions={{ headerShown: false }}>
