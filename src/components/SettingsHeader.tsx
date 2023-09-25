@@ -9,7 +9,9 @@ export function SettingsHeader() {
     <Flex w="100%" direction="column">
       <Flex direction="row" justify="space-between">
         <Flex direction="row" align="center">
-          <Avatar source={{ uri: user?.photo }} size="lg" bg="red.100" mr={2} />
+          <Avatar source={{ uri: user?.photo }} size="lg" mr={2} bg="brand.400">
+            {user?.first_name[0]}
+          </Avatar>
           <Flex>
             <Heading color="brand.100" fontWeight="500" fontSize="lg">
               {user?.first_name} {user?.last_name}

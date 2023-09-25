@@ -4,7 +4,7 @@ import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { ComponentType, useEffect } from 'react';
 import { ProfileScreen } from 'src/screens';
 import { AuthRoutes } from './authRoutes';
-import { TabRoutes } from './homeRoutes';
+import { TabRoutes } from './tabRoutes';
 
 const { Navigator: AuthNavigator, Screen: AuthScreen } = createStackNavigator();
 const { Navigator: HomeNavigator, Screen: HomeScreen } = createStackNavigator();

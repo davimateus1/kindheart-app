@@ -20,12 +20,12 @@ import PoppinsBlack from './assets/fonts/Poppins-Black.ttf';
 function App() {
   const fetchFonts = async () => {
     Font.loadAsync({
-      'Poppins-Thin': PoppinsThin,
+      'Poppins-Regular': PoppinsRegular,
       'Poppins-Bold': PoppinsBold,
+      'Poppins-Thin': PoppinsThin,
       'Poppins-Light': PoppinsLight,
       'Poppins-Black': PoppinsBlack,
       'Poppins-Medium': PoppinsMedium,
-      'Poppins-Regular': PoppinsRegular,
       'Poppins-SemiBold': PoppinsSemiBold,
       'Poppins-ExtraBold': PoppinsExtraBold,
       'Poppins-ExtraLight': PoppinsExtraLight,

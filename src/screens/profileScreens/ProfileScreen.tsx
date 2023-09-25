@@ -65,7 +65,10 @@ export function ProfileScreen({ route, navigation }: ProfileScreenProps) {
                 source={{ uri: userProfile?.photo }}
                 borderWidth={5}
                 borderColor="white"
-              />
+                bg="brand.400"
+              >
+                {userProfile?.first_name[0]}
+              </Avatar>
             </Flex>
             <Heading color="brand.100" mt={5} fontWeight="500" fontSize="lg">
               {userProfile?.first_name} {userProfile?.last_name}

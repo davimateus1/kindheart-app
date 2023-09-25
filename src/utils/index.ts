@@ -6,6 +6,7 @@ import HygieneImage from 'assets/images/hygiene.png';
 import SecurityImage from 'assets/images/security.png';
 import CommunicationImage from 'assets/images/communication.png';
 import EmergencyImage from 'assets/images/emergency.png';
+import { StatusType } from 'src/@types/authTypes';
 
 export const elderlyStatuteSection = [
   {
@@ -105,3 +106,48 @@ export const emergencyTips = {
     'Mantenha-se atualizado sobre os procedimentos de emergência, como RCP (ressuscitação cardiopulmonar) e manobras de desobstrução das vias aéreas. Saiba como agir em situações de emergência, como engasgo, parada cardíaca ou convulsão. Esteja preparado para agir rapidamente e salvar vidas.',
   ],
 };
+
+export function renderStatus(status: StatusType): {
+  title: string;
+  color: string;
+  bgColor: string;
+} {
+  switch (status) {
+    case 'FREE':
+      return {
+        title: 'Disponível',
+        color: 'green.500',
+        bgColor: 'green.100',
+      };
+    case 'ALOCATED':
+      return {
+        title: 'Alocado',
+        color: 'yellow.500',
+        bgColor: 'yellow.100',
+      };
+    case 'FINISHED':
+      return {
+        title: 'Finalizado',
+        color: 'gray.500',
+        bgColor: 'gray.100',
+      };
+    case 'CANCELED':
+      return {
+        title: 'Cancelado',
+        color: 'red.500',
+        bgColor: 'red.100',
+      };
+    case 'STARTED':
+      return {
+        title: 'Iniciado',
+        color: 'blue.500',
+        bgColor: 'blue.100',
+      };
+    default:
+      return {
+        title: 'Sem informações',
+        color: 'gray.500',
+        bgColor: 'gray.100',
+      };
+  }
+}

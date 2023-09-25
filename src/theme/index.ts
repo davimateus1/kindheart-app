@@ -12,6 +12,9 @@ export const theme = extendTheme({
     secondary: {
       50: '#FF6961',
     },
+    opacity: {
+      'green-40': 'rgba(40, 205, 86, 0.4)',
+    },
   },
   config: {
     initialColorMode: 'dark',
