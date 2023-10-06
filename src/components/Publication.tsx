@@ -2,19 +2,22 @@ import { Avatar, Flex, Image, Text } from 'native-base';
 import { Ionicons } from '@expo/vector-icons';
 import { renderStatus } from 'src/utils';
 import { StatusType } from 'src/@types/authTypes';
+import { useAuth } from 'src/contexts/auth';
+import { useLikeFeedPost } from 'src/store';
 import { CustomButton } from './CustomButton';
 
 type PublicationProps = {
   name: string;
+  postId: number;
   topicName: string;
   createdAt: string;
-  isLiked?: boolean;
+  likedBy: number[];
   isFriend?: boolean;
+  postImage?: string;
   status: StatusType;
   likesCount?: number;
   profileImage?: string;
-  publicationImage?: string;
-  publicationDescription: string;
+  postDescription: string;
 };
 
 export function Publication({
@@ -24,11 +27,17 @@ export function Publication({
   createdAt,
   profileImage,
   likesCount = 0,
-  isLiked = false,
+  likedBy = [],
   isFriend = false,
-  publicationImage,
-  publicationDescription,
+  postImage,
+  postDescription,
+  postId,
 }: PublicationProps) {
+  const { user } = useAuth();
+  const isLiked = likedBy.includes(user?.id as number);
+
+  const { likeMutate } = useLikeFeedPost();
+
   const convertISODate = (date: string) => {
     const dateObj = new Date(date);
     return `${dateObj.getDate()} ${dateObj.toLocaleString('default', {
@@ -36,8 +45,15 @@ export function Publication({
     })} ${dateObj.getHours()}:${dateObj.getMinutes()}`;
   };
 
+  const handleLikePost = () => {
+    likeMutate({
+      user_id: String(user?.id),
+      post_id: String(postId),
+    });
+  };
+
   return (
-    <Flex w="100%">
+    <Flex w="100%" h={530}>
       <Flex direction="row" align="center" w="100%" justify="space-between" mb={3}>
         <Flex w="65%" direction="row">
           <Avatar source={{ uri: profileImage }} size="lg" mr={2} bg="brand.400">
@@ -83,9 +99,9 @@ export function Publication({
         </Flex>
       </Flex>
       <Flex w="100%" h="100%">
-        {publicationImage && (
+        {postImage && (
           <Image
-            source={{ uri: publicationImage }}
+            source={{ uri: postImage }}
             alt="activity"
             w="100%"
             h={275}
@@ -93,12 +109,17 @@ export function Publication({
             rounded="md"
           />
         )}
-        <Text color="brand.400" my={2}>
-          {publicationDescription}
+        <Text color="brand.400" my={2} noOfLines={6}>
+          {postDescription}
         </Text>
         <Flex direction="row" justify="space-between">
           <Flex direction="row" align="center" w="50%">
-            <Ionicons name={isLiked ? 'heart' : 'heart-outline'} size={26} color="black" />
+            <Ionicons
+              name={isLiked ? 'heart' : 'heart-outline'}
+              size={26}
+              color="black"
+              onPress={handleLikePost}
+            />
             <Text fontWeight="400" fontSize="md" ml={1} color="black">
               {likesCount}
             </Text>
