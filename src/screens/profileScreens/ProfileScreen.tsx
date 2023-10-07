@@ -1,6 +1,6 @@
 import { AntDesign, Ionicons } from '@expo/vector-icons';
 import { NavigationProp, RouteProp } from '@react-navigation/native';
-import { Avatar, Divider, Flex, Heading, Image, ScrollView, Spinner, Text } from 'native-base';
+import { Avatar, Divider, Flex, Heading, ScrollView, Spinner, Text } from 'native-base';
 import { RoleType } from 'src/@types/authTypes';
 import { CustomButton, CustomHeader, InfoCard } from 'src/components';
 import { useAuth } from 'src/contexts/auth';
@@ -35,7 +35,6 @@ export function ProfileScreen({ route, navigation }: ProfileScreenProps) {
     userType: chooseUser().role,
   });
 
-  const activitiesCount = userProfile?.activities_voluntary.length ?? 0;
   const reviewsCount = userProfile?.user_reviews.length ?? 0;
 
   const handleGoBack = () => {
@@ -104,31 +103,11 @@ export function ProfileScreen({ route, navigation }: ProfileScreenProps) {
               </Flex>
             )}
             <Flex w="100%" direction="row" justify="space-around" my={5}>
-              <InfoCard label="Publicações" value={activitiesCount} w="40%" />
               <InfoCard label="Feedbacks" value={reviewsCount} w="40%" />
             </Flex>
           </Flex>
           <Divider w="100%" bg="brand.300" />
-          <Flex w="100%">
-            {userProfile?.activities_voluntary.map(activity => (
-              <Flex key={activity.image} w="100%" h={200} p={4} my={2}>
-                <Image
-                  source={{ uri: activity.image }}
-                  alt="activity"
-                  w="100%"
-                  h={200}
-                  resizeMode="cover"
-                />
-              </Flex>
-            ))}
-            {userProfile?.activities_voluntary.length === 0 && (
-              <Flex w="100%" align="center" py={8}>
-                <Text color="brand.50" fontSize="xl" fontWeight="500" maxW="80%" textAlign="center">
-                  Nenhuma publicação encontrada
-                </Text>
-              </Flex>
-            )}
-          </Flex>
+          <Flex w="100%" />
         </ScrollView>
       )}
     </Flex>

@@ -1,5 +1,6 @@
 import { Ionicons } from '@expo/vector-icons';
-import { Box, Flex, Heading, ScrollView, Spinner, Text } from 'native-base';
+import { Box, Divider, Flex, Heading, ScrollView, Spinner, Text } from 'native-base';
+import { Fragment } from 'react';
 import { CustomButton, CustomHeader, Publication } from 'src/components';
 import { useAuth } from 'src/contexts/auth';
 import { useGetUserFeed } from 'src/store';
@@ -36,21 +37,27 @@ export function FeedScreen() {
             </Flex>
           ) : (
             <Box>
-              {feed?.map(post => (
-                <Publication
-                  key={post.id}
-                  postId={post.id}
-                  status={post.status}
-                  postImage={post.image}
-                  likedBy={post.likedBy}
-                  likesCount={post.likes}
-                  isFriend={post.isFriend}
-                  createdAt={post.created_at}
-                  topicName={post.topic.label}
-                  postDescription={post.description}
-                  name={post.user_elderly.first_name}
-                  profileImage={post.user_elderly.photo}
-                />
+              {feed?.map((post, index) => (
+                <Fragment key={post.id}>
+                  <Publication
+                    key={post.id}
+                    postId={post.id}
+                    status={post.status}
+                    postImage={post.image}
+                    likedBy={post.likedBy}
+                    likesCount={post.likes}
+                    isFriend={post.isFriend}
+                    createdAt={post.created_at}
+                    topicName={post.topic.label}
+                    postDescription={post.description}
+                    name={post.user_elderly.first_name}
+                    userElderlyId={post.user_elderly_id}
+                    profileImage={post.user_elderly.photo}
+                  />
+                  {index !== feed.length - 1 && (
+                    <Divider h={1} w="100%" bgColor="brand.50" my={4} opacity={0.25} />
+                  )}
+                </Fragment>
               ))}
             </Box>
           )}
