@@ -9,3 +9,5 @@ export * from './SettingsOption';
 export * from './CameraAndGalery';
 export * from './CustomScreen';
 export * from './Publication';
+export * from './Tabs';
+export * from './ChatCard';

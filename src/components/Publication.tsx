@@ -1,6 +1,6 @@
 import { Avatar, Flex, Image, Text } from 'native-base';
 import { Ionicons } from '@expo/vector-icons';
-import { renderStatus } from 'src/utils';
+import { convertISODate, renderStatus } from 'src/utils';
 import { StatusType } from 'src/@types/authTypes';
 import { useAuth } from 'src/contexts/auth';
 import { useFriendship, useLikeFeedPost } from 'src/store';
@@ -45,13 +45,6 @@ export function Publication({
 
   const { likeMutate } = useLikeFeedPost();
   const { friendshipMutate, friendshipLoading } = useFriendship();
-
-  const convertISODate = (date: string) => {
-    const dateObj = new Date(date);
-    return `${dateObj.getDate()} ${dateObj.toLocaleString('default', {
-      month: 'short',
-    })} ${dateObj.getHours()}:${dateObj.getMinutes()}`;
-  };
 
   const handleLikePost = () => {
     likeMutate({

@@ -1,9 +1,9 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { InitialScreen } from 'src/screens';
 import { Ionicons } from '@expo/vector-icons';
 import { SettingsScreens } from '../settingsRoutes';
 import { ProfileScreens } from '../profileRoutes';
 import { HomeScreens } from '../homeRoutes';
+import { ChatScreens } from '../chatRoutes';
 
 const { Navigator: TabNavigator, Screen: TabScreen } = createBottomTabNavigator();
 
@@ -42,7 +42,7 @@ export function TabRoutes() {
       initialRouteName="Home"
     >
       <TabScreen name="Home" component={HomeScreens} />
-      <TabScreen name="Messages" component={InitialScreen} />
+      <TabScreen name="Messages" component={ChatScreens} />
       <TabScreen name="AllSettings" component={SettingsScreens} />
       <TabScreen name="ProfileInfos" component={ProfileScreens} />
     </TabNavigator>

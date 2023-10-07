@@ -151,3 +151,10 @@ export function renderStatus(status: StatusType): {
       };
   }
 }
+
+export const convertISODate = (date: string) => {
+  const dateObj = new Date(date);
+  return `${dateObj.getDate()} ${dateObj.toLocaleString('default', {
+    month: 'short',
+  })} ${dateObj.getHours()}:${dateObj.getMinutes()}`;
+};
