@@ -24,7 +24,7 @@ export const registerSchema = z.object({
   password: z.string({ required_error: 'O campo senha é obrigatório' }).min(6, {
     message: 'A senha deve conter no mínimo 6 caracteres',
   }),
-  image: z.string({ required_error: 'O upload de imagem é obrigatório' }),
+  image: z.string({ required_error: 'O upload de imagem é obrigatório' }).trim(),
   personalPhone: z.string({ required_error: 'O campo telefone pessoal é obrigatório' }).min(15, {
     message: 'O telefone deve conter 11 caracteres',
   }),
@@ -50,3 +50,11 @@ export const codeSchema = z.object({
 });
 
 export type CodeSchema = z.infer<typeof codeSchema>;
+
+export const feedPostSchema = z.object({
+  topic: z.string({ required_error: 'O campo tópico é obrigatório' }),
+  description: z.string({ required_error: 'O campo descrição é obrigatório' }),
+  image: z.string({ required_error: 'O upload de imagem é obrigatório' }).trim(),
+});
+
+export type FeedPostSchema = z.infer<typeof feedPostSchema>;

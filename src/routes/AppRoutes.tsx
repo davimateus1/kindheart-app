@@ -2,7 +2,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { useAuth } from 'src/contexts/auth';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { ComponentType, useEffect } from 'react';
-import { ProfileScreen } from 'src/screens';
+import { CreateFeedPostScreen, ProfileScreen } from 'src/screens';
 import { AuthRoutes } from './authRoutes';
 import { TabRoutes } from './tabRoutes';
 
@@ -31,6 +31,7 @@ function AppNavigator() {
         <HomeNavigator screenOptions={{ headerShown: false }}>
           <HomeScreen name="TabRoutes" component={TabRoutes} />
           <HomeScreen name="OtherUserProfile" component={ProfileScreen as ComponentType<unknown>} />
+          <HomeScreen name="CreateFeedPost" component={CreateFeedPostScreen} />
         </HomeNavigator>
       ) : (
         <AuthNavigator screenOptions={{ headerShown: false }}>

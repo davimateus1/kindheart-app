@@ -102,12 +102,13 @@ export function Publication({
             <Text
               bg="brand.300"
               color="brand.50"
-              px={5}
+              px={2}
               borderRadius={20}
               textAlign="center"
               borderWidth={1}
               borderColor="brand.400"
               w="60%"
+              noOfLines={2}
             >
               {topicName}
             </Text>

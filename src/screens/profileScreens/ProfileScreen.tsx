@@ -7,15 +7,7 @@ import { useAuth } from 'src/contexts/auth';
 import { useGetUserProfile } from 'src/store';
 
 type ProfileScreenProps = {
-  route: RouteProp<
-    Record<
-      string,
-      {
-        userId: number;
-        userType: RoleType;
-      }
-    >
-  >;
+  route: RouteProp<Record<string, { userId: number; userType: RoleType }>>;
   navigation: NavigationProp<Record<string, object>>;
 };
 
@@ -34,8 +26,6 @@ export function ProfileScreen({ route, navigation }: ProfileScreenProps) {
     userId: chooseUser().id,
     userType: chooseUser().role,
   });
-
-  const reviewsCount = userProfile?.user_reviews.length ?? 0;
 
   const handleGoBack = () => {
     navigation.goBack();
@@ -103,7 +93,9 @@ export function ProfileScreen({ route, navigation }: ProfileScreenProps) {
               </Flex>
             )}
             <Flex w="100%" direction="row" justify="space-around" my={5}>
-              <InfoCard label="Feedbacks" value={reviewsCount} w="40%" />
+              <InfoCard label="Publicações" value={userProfile?.posts_count ?? 0} w="32.3%" />
+              <InfoCard label="Feedbacks" value={userProfile?.reviews_count ?? 0} w="32.3%" />
+              <InfoCard label="Conexões" value={userProfile?.friends_count ?? 0} w="32.3%" />
             </Flex>
           </Flex>
           <Divider w="100%" bg="brand.300" />

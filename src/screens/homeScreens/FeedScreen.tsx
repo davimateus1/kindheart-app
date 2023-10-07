@@ -1,14 +1,42 @@
 import { Ionicons } from '@expo/vector-icons';
+import { NavigationProp } from '@react-navigation/native';
 import { Box, Divider, Flex, Heading, ScrollView, Spinner, Text } from 'native-base';
-import { Fragment } from 'react';
+import { Fragment, useState } from 'react';
 import { CustomButton, CustomHeader, Publication } from 'src/components';
 import { useAuth } from 'src/contexts/auth';
 import { useGetUserFeed } from 'src/store';
 
-export function FeedScreen() {
-  const { user } = useAuth();
+type FeedScreenProps = {
+  navigation: NavigationProp<Record<string, object | undefined>>;
+};
 
-  const { data: feed, isLoading } = useGetUserFeed({ userId: user?.id ?? 0, take: 10 });
+const POSTS_TO_ADD = 10;
+
+export function FeedScreen({ navigation }: FeedScreenProps) {
+  const { user } = useAuth();
+  const [addPosts, setAddPosts] = useState(POSTS_TO_ADD);
+
+  const { data: feed, isLoading } = useGetUserFeed({ userId: user?.id ?? 0, take: addPosts });
+
+  const totalPosts = feed?.[0].total_posts ?? 0;
+
+  const handleLoadMorePosts = () => {
+    setAddPosts(prev => prev + POSTS_TO_ADD);
+  };
+
+  const onScrollPosts = ({ nativeEvent }: any) => {
+    const { layoutMeasurement, contentOffset, contentSize } = nativeEvent;
+    const paddingToBottom = 20;
+    if (layoutMeasurement.height + contentOffset.y >= contentSize.height - paddingToBottom) {
+      if (addPosts <= totalPosts) {
+        handleLoadMorePosts();
+      }
+    }
+  };
+
+  const handleNavigateToCreateFeedPost = () => {
+    navigation.navigate('CreateFeedPost');
+  };
 
   return (
     <Flex flex={1} bgColor="white" direction="column" align="center">
@@ -17,13 +45,21 @@ export function FeedScreen() {
           Publicações
         </Heading>
       </CustomHeader>
-      <ScrollView w="100%" h="100%" overScrollMode="never" px={5}>
+      <ScrollView
+        w="100%"
+        h="100%"
+        overScrollMode="never"
+        px={5}
+        onScroll={onScrollPosts}
+        scrollEventThrottle={16}
+      >
         <Flex w="100%" align="flex-end" my={5}>
           <CustomButton
             bgColor="opacity.green-40"
             w="auto"
             rounded="full"
             rightIcon={<Ionicons name="arrow-forward" size={20} color="black" />}
+            onPress={handleNavigateToCreateFeedPost}
           >
             <Text color="black" fontWeight="500">
               Faça uma publicação
@@ -46,7 +82,7 @@ export function FeedScreen() {
                     postImage={post.image}
                     likedBy={post.likedBy}
                     likesCount={post.likes}
-                    isFriend={post.isFriend}
+                    isFriend={post.is_friend}
                     createdAt={post.created_at}
                     topicName={post.topic.label}
                     postDescription={post.description}

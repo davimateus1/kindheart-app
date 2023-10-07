@@ -1,9 +1,14 @@
 import { Ionicons } from '@expo/vector-icons';
 import { Avatar, Flex, Heading, IconButton, Text } from 'native-base';
+import { UserProfile } from 'src/@types/usersTypes';
 import { useAuth } from 'src/contexts/auth';
 
-export function SettingsHeader() {
-  const { logout, user } = useAuth();
+type SettingsHeaderProps = {
+  user?: UserProfile;
+};
+
+export function SettingsHeader({ user }: SettingsHeaderProps) {
+  const { logout } = useAuth();
 
   return (
     <Flex w="100%" direction="column">

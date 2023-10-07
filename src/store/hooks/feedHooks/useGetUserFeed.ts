@@ -1,11 +1,11 @@
 import { useQuery, UseQueryOptions } from '@tanstack/react-query';
+import { Activity } from 'src/@types/usersTypes';
 import { getUserFeed } from 'src/store/requests';
-import { FeedItem } from 'src/store/requests/feed/types';
 
 export type UseGetUserFeedProps = {
   userId: number;
   take: number;
-} & UseQueryOptions<Array<FeedItem>, unknown>;
+} & UseQueryOptions<Array<Activity>, unknown>;
 
 export const useGetUserFeed = ({ userId, take, ...rest }: UseGetUserFeedProps) =>
   useQuery({

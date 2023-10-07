@@ -1,3 +1,5 @@
+import { StatusType } from '../authTypes';
+
 export type UserProfile = {
   id: number;
   first_name: string;
@@ -11,11 +13,37 @@ export type UserProfile = {
   photo: string;
   role: string;
   activities_voluntary: Array<Activity>;
-  user_reviews: any[]; // TODO: create reviews type
+  friends_count: number;
+  posts_count: number;
+  reviews_count: number;
   age: number;
 };
 
 export type Activity = {
+  id: number;
+  user_elderly_id: number;
+  user_voluntary_id: number;
+  topic: { id: number; label: string; value: string };
+  description: string;
+  status: StatusType;
+  likes: number;
+  likedBy: number[];
   image: string;
-  // TODO: create activity type
+  created_at: string;
+  updated_at: string;
+  user_elderly: UserElderly;
+  is_friend: boolean;
+  total_posts: number;
+};
+
+export type UserElderly = {
+  photo: string;
+  first_name: string;
+  last_name: string;
+};
+
+export type Topic = {
+  id: number;
+  label: string;
+  value: string;
 };

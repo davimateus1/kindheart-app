@@ -1,4 +1,5 @@
 import { FormControl, ISelectProps, ITextProps, Select, Stack, Text } from 'native-base';
+import { ComponentProps } from 'react';
 import {
   Control,
   FieldError,
@@ -22,6 +23,7 @@ interface InputProps {
   selectProps?: ISelectProps;
   rules?: UseControllerProps['rules'];
   labelProps?: ITextProps;
+  stackProps?: ComponentProps<typeof Stack>;
 }
 
 const defaultLabelStyle: ITextProps = {
@@ -37,13 +39,14 @@ export function CustomSelect({
   selectProps,
   rules,
   labelProps,
+  stackProps,
 }: InputProps) {
   const {
     field: { onChange, value },
   } = useController({ name, control, rules });
 
   return (
-    <Stack space={1} w="100%">
+    <Stack space={1} w="100%" {...stackProps}>
       <FormControl w="100%" isInvalid={!!error}>
         {label && (
           <FormControl.Label {...defaultLabelStyle}>
