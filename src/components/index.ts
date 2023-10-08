@@ -11,3 +11,4 @@ export * from './CustomScreen';
 export * from './Publication';
 export * from './Tabs';
 export * from './ChatCard';
+export * from './ChatBubble';

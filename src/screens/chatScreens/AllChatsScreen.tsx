@@ -1,22 +1,10 @@
-import { NavigationProp } from '@react-navigation/native';
 import { Flex, Heading, ScrollView, Text } from 'native-base';
 import { useState } from 'react';
 import { ChatCard, CustomHeader, Tabs } from 'src/components';
 
-type AllChatsScreenProps = {
-  navigation: NavigationProp<Record<string, object | undefined>>;
-};
-
-export function AllChatsScreen({ navigation }: AllChatsScreenProps) {
+export function AllChatsScreen() {
   const newMessagesCount = 28;
   const [tabIndex, setTabIndex] = useState<0 | 1>(0);
-
-  const handleNavigateToChat = () => {
-    navigation.navigate('Chat', {
-      user_sender_id: 1,
-      user_receiver_id: 2,
-    });
-  };
 
   return (
     <Flex flex={1} bgColor="white" direction="column" align="center">

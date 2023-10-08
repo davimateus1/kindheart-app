@@ -2,7 +2,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { useAuth } from 'src/contexts/auth';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { ComponentType, useEffect } from 'react';
-import { CreateFeedPostScreen, ProfileScreen } from 'src/screens';
+import { CreateFeedPostScreen, ProfileScreen, ChatScreen, ElderlyStatuteScreen } from 'src/screens';
 import { AuthRoutes } from './authRoutes';
 import { TabRoutes } from './tabRoutes';
 
@@ -30,8 +30,11 @@ function AppNavigator() {
       {user ? (
         <HomeNavigator screenOptions={{ headerShown: false }}>
           <HomeScreen name="TabRoutes" component={TabRoutes} />
+          {/* This routes dont have a tab bar */}
           <HomeScreen name="OtherUserProfile" component={ProfileScreen as ComponentType<unknown>} />
+          <HomeScreen name="Chat" component={ChatScreen} />
           <HomeScreen name="CreateFeedPost" component={CreateFeedPostScreen} />
+          <HomeScreen name="ElderlyStatute" component={ElderlyStatuteScreen} />
         </HomeNavigator>
       ) : (
         <AuthNavigator screenOptions={{ headerShown: false }}>

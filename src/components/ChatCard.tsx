@@ -1,11 +1,18 @@
 import { Ionicons } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 import { Avatar, Flex, IconButton, Text } from 'native-base';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { convertISODate } from 'src/utils';
 
 export function ChatCard() {
+  const { navigate } = useNavigation() as any;
+
   const navigateToProfile = () => {
     console.log('navigateToProfile');
+  };
+
+  const handleNavigateToChat = () => {
+    navigate('Chat', { chatId: '1' });
   };
 
   return (
@@ -51,7 +58,7 @@ export function ChatCard() {
         icon={<Ionicons name="chevron-forward" size={24} color="#28CD56" />}
         bg="transparent"
         _pressed={{ bg: 'transparent' }}
-        onPress={() => console.log('pressed')}
+        onPress={handleNavigateToChat}
         w="15%"
       />
     </Flex>
