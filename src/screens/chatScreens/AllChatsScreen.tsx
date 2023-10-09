@@ -1,10 +1,14 @@
-import { Flex, Heading, ScrollView, Text } from 'native-base';
+import { Box, Flex, Heading, ScrollView, Spinner, Text } from 'native-base';
 import { useState } from 'react';
 import { ChatCard, CustomHeader, Tabs } from 'src/components';
+import { useAuth } from 'src/contexts/auth';
+import { useGetUserChats } from 'src/store';
 
 export function AllChatsScreen() {
+  const { user } = useAuth();
   const newMessagesCount = 28;
   const [tabIndex, setTabIndex] = useState<0 | 1>(0);
+  const { data: chats, isLoading } = useGetUserChats({ userId: user?.id as number });
 
   return (
     <Flex flex={1} bgColor="white" direction="column" align="center">
@@ -32,11 +36,37 @@ export function AllChatsScreen() {
         <Tabs tabIndex={tabIndex} setTabIndex={setTabIndex} />
         <Flex w="100%" h="100%" p={5}>
           <ScrollView w="100%" h="100%" overScrollMode="never" mb={16}>
-            <ChatCard />
-            <ChatCard />
-            <ChatCard />
-            <ChatCard />
-            <ChatCard />
+            {isLoading ? (
+              <Flex flex={1} justify="center" align="center">
+                <Spinner color="brand.50" size={50} />
+              </Flex>
+            ) : (
+              <Box>
+                {chats ? (
+                  <Box>
+                    {chats?.map(chat => (
+                      <ChatCard
+                        key={chat.id}
+                        chatId={chat.id}
+                        messages={chat.messages}
+                        updatedAt={chat.updated_at}
+                        activityId={chat.activity_id}
+                        userSenderId={user?.id as number}
+                        userPhoto={chat.user_receiver.photo}
+                        lastName={chat.user_receiver.last_name}
+                        firstName={chat.user_receiver.first_name}
+                      />
+                    ))}
+                  </Box>
+                ) : (
+                  <Flex flex={1} justify="center" align="center">
+                    <Text color="brand.100" fontWeight="500" fontSize="lg">
+                      Nenhuma conversa encontrada
+                    </Text>
+                  </Flex>
+                )}
+              </Box>
+            )}
           </ScrollView>
         </Flex>
       </Flex>

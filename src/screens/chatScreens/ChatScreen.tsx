@@ -1,16 +1,24 @@
 import { AntDesign, Feather, Ionicons } from '@expo/vector-icons';
-import { NavigationProp } from '@react-navigation/native';
+import { NavigationProp, RouteProp } from '@react-navigation/native';
 import { Flex, ScrollView, Text } from 'native-base';
 import { ChatBubble, CustomButton, CustomHeader, CustomInput } from 'src/components';
 
 import { useForm } from 'react-hook-form';
+import { useGetUserChat } from 'src/store';
+import { ActionActivityCard } from 'src/components/ActionActivityCard';
 
 type ChatScreenProps = {
   navigation: NavigationProp<Record<string, object | undefined>>;
-  route: any; // TODO: add type
+  route: RouteProp<Record<string, { chatId: string; userSenderId: string; activityId: string }>>;
 };
 
 export function ChatScreen({ navigation, route }: ChatScreenProps) {
+  const { chatId, userSenderId, activityId } = route.params;
+
+  const { data: chat } = useGetUserChat({ chatId, activityId, userSenderId });
+
+  const isElderly = chat?.activity?.user_elderly_id === Number(userSenderId);
+
   const {
     control,
     formState: { errors },
@@ -43,7 +51,7 @@ export function ChatScreen({ navigation, route }: ChatScreenProps) {
               mx={2}
             />
             <Text color="brand.200" fontWeight="bold">
-              Davi Mateus
+              {chat?.user_receiver.first_name} {chat?.user_receiver.last_name}
             </Text>
           </Flex>
           <Flex w="25%" justify="flex-start" direction="row" align="center">
@@ -66,49 +74,22 @@ export function ChatScreen({ navigation, route }: ChatScreenProps) {
       </CustomHeader>
 
       <Flex flex={1} direction="column" align="center" w="100%">
-        <Flex h="87%" bg="opacity.green-40" w="100%" px={5}>
+        {isElderly && (
+          <Flex h="17%" w="100%">
+            <ActionActivityCard
+              description={chat?.activity?.description}
+              photo={chat?.activity?.image}
+              createdAt={chat?.activity?.created_at}
+            />
+          </Flex>
+        )}
+        <Flex h={isElderly ? '70%' : '87%'} bg="opacity.green-40" w="100%" px={5}>
           <ScrollView w="100%" overScrollMode="never" mb={2}>
             <ChatBubble
               isMyMessage={false}
               message="Olá, tudo bem? Estou interessado em comprar o seu produto. Podemos negociar?"
               userAvatar="https://avatars.githubusercontent.com/u/66326378?v=4"
               key={1}
-            />
-            <ChatBubble
-              isMyMessage
-              message="Olá, tudo bem? Estou interessado em comprar o seu produto. Podemos negociar?"
-              userAvatar="https://avatars.githubusercontent.com/u/66326378?v=4"
-              key={2}
-            />
-            <ChatBubble
-              isMyMessage={false}
-              message="Olá, tudo bem? Estou interessado em comprar o seu produto. Podemos negociar?"
-              userAvatar="https://avatars.githubusercontent.com/u/66326378?v=4"
-              key={3}
-            />
-            <ChatBubble
-              isMyMessage
-              message="Olá, tudo bem? Estou interessado em comprar o seu produto. Podemos negociar?"
-              userAvatar="https://avatars.githubusercontent.com/u/66326378?v=4"
-              key={3}
-            />
-            <ChatBubble
-              isMyMessage={false}
-              message="Olá, tudo bem? Estou interessado em comprar o seu produto. Podemos negociar?"
-              userAvatar="https://avatars.githubusercontent.com/u/66326378?v=4"
-              key={3}
-            />
-            <ChatBubble
-              isMyMessage
-              message="Olá, tudo bem? Estou interessado em comprar o seu produto. Podemos negociar?"
-              userAvatar="https://avatars.githubusercontent.com/u/66326378?v=4"
-              key={3}
-            />
-            <ChatBubble
-              isMyMessage={false}
-              message="Olá, tudo bem? Estou interessado em comprar o seu produto. Podemos negociar?"
-              userAvatar="https://avatars.githubusercontent.com/u/66326378?v=4"
-              key={3}
             />
           </ScrollView>
         </Flex>

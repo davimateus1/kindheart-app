@@ -29,9 +29,9 @@ export function useFriendship(): UseFriendshipProps {
     onSuccess: response => {
       showSuccessToast({
         title: `Usuário ${
-          response.data.message.includes('accepted') ? 'adicionado' : 'removido'
+          response.data.message.includes('addeed') ? 'adicionado' : 'removido'
         } com sucesso!`,
-        description: response.data.message.includes('accepted')
+        description: response.data.message.includes('addeed')
           ? 'Agora você pode interagir com o usuário'
           : 'Você não receberá mais notificações deste usuário',
       });

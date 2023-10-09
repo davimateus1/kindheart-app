@@ -1,4 +1,4 @@
-import { StatusType } from '../authTypes';
+import { RoleType, StatusType } from '../authTypes';
 
 export type UserProfile = {
   id: number;
@@ -40,6 +40,7 @@ export type UserElderly = {
   photo: string;
   first_name: string;
   last_name: string;
+  role: RoleType;
 };
 
 export type Topic = {

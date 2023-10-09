@@ -18,7 +18,7 @@ export function FeedScreen({ navigation }: FeedScreenProps) {
 
   const { data: feed, isLoading } = useGetUserFeed({ userId: user?.id ?? 0, take: addPosts });
 
-  const totalPosts = feed?.[0].total_posts ?? 0;
+  const totalPosts = feed?.[0]?.total_posts ?? 0;
 
   const handleLoadMorePosts = () => {
     setAddPosts(prev => prev + POSTS_TO_ADD);
@@ -67,34 +67,45 @@ export function FeedScreen({ navigation }: FeedScreenProps) {
           </CustomButton>
         </Flex>
         <Flex h="100%">
-          {isLoading ? (
+          {totalPosts === 0 ? (
             <Flex flex={1} justify="center" align="center" h="200">
-              <Spinner color="brand.50" size={50} />
+              <Text color="brand.100" fontWeight="500" fontSize="lg">
+                Nenhuma publicação encontrada
+              </Text>
             </Flex>
           ) : (
             <Box>
-              {feed?.map((post, index) => (
-                <Fragment key={post.id}>
-                  <Publication
-                    key={post.id}
-                    postId={post.id}
-                    status={post.status}
-                    postImage={post.image}
-                    likedBy={post.likedBy}
-                    likesCount={post.likes}
-                    isFriend={post.is_friend}
-                    createdAt={post.created_at}
-                    topicName={post.topic.label}
-                    postDescription={post.description}
-                    name={post.user_elderly.first_name}
-                    userElderlyId={post.user_elderly_id}
-                    profileImage={post.user_elderly.photo}
-                  />
-                  {index !== feed.length - 1 && (
-                    <Divider h={1} w="100%" bgColor="brand.50" my={4} opacity={0.25} />
-                  )}
-                </Fragment>
-              ))}
+              {isLoading ? (
+                <Flex flex={1} justify="center" align="center" h="200">
+                  <Spinner color="brand.50" size={50} />
+                </Flex>
+              ) : (
+                <Box>
+                  {feed?.map((post, index) => (
+                    <Fragment key={post.id}>
+                      <Publication
+                        key={post.id}
+                        postId={post.id}
+                        status={post.status}
+                        postImage={post.image}
+                        likedBy={post.likedBy}
+                        likesCount={post.likes}
+                        isFriend={post.is_friend}
+                        createdAt={post.created_at}
+                        topicName={post.topic.label}
+                        postDescription={post.description}
+                        name={post.user_elderly.first_name}
+                        userElderlyId={post.user_elderly_id}
+                        profileImage={post.user_elderly.photo}
+                        role={post.user_elderly.role}
+                      />
+                      {index !== feed.length - 1 && (
+                        <Divider h={1} w="100%" bgColor="brand.50" my={4} opacity={0.25} />
+                      )}
+                    </Fragment>
+                  ))}
+                </Box>
+              )}
             </Box>
           )}
         </Flex>

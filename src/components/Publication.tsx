@@ -1,9 +1,9 @@
 import { Avatar, Flex, Image, Text } from 'native-base';
 import { Ionicons } from '@expo/vector-icons';
 import { convertISODate, renderStatus } from 'src/utils';
-import { StatusType } from 'src/@types/authTypes';
+import { RoleType, StatusType } from 'src/@types/authTypes';
 import { useAuth } from 'src/contexts/auth';
-import { useFriendship, useLikeFeedPost } from 'src/store';
+import { useCreateChat, useFriendship, useLikeFeedPost } from 'src/store';
 import { useNavigation } from '@react-navigation/native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { CustomButton } from './CustomButton';
@@ -21,6 +21,7 @@ type PublicationProps = {
   profileImage?: string;
   postDescription: string;
   userElderlyId: number;
+  role: RoleType;
 };
 
 export function Publication({
@@ -36,15 +37,21 @@ export function Publication({
   postDescription,
   postId,
   userElderlyId,
+  role,
 }: PublicationProps) {
   const { user } = useAuth();
   const { navigate } = useNavigation() as any;
 
   const isUserPost = user?.id === userElderlyId;
   const isLiked = likedBy.includes(user?.id as number);
+  const isElderlyPost = role === 'ELDERLY';
+  const isVoluntaryUser = user?.role === 'VOLUNTARY';
+  const canSendMessage =
+    status === 'FREE' && !isUserPost && isElderlyPost && isVoluntaryUser && isFriend;
 
   const { likeMutate } = useLikeFeedPost();
   const { friendshipMutate, friendshipLoading } = useFriendship();
+  const { chatMutate } = useCreateChat();
 
   const handleLikePost = () => {
     likeMutate({
@@ -69,6 +76,14 @@ export function Publication({
     return navigate('OtherUserProfile', {
       userId: userElderlyId,
       userType: 'ELDERLY',
+    });
+  };
+
+  const handleCreateChat = () => {
+    chatMutate({
+      user_one_id: String(user?.id),
+      user_two_id: String(userElderlyId),
+      activity_id: String(postId),
     });
   };
 
@@ -164,7 +179,14 @@ export function Publication({
             >
               {renderStatus(status).title}
             </Text>
-            {status === 'FREE' && <Ionicons name="paper-plane-outline" size={26} color="black" />}
+            {canSendMessage && (
+              <Ionicons
+                name="paper-plane-outline"
+                size={26}
+                color="black"
+                onPress={handleCreateChat}
+              />
+            )}
           </Flex>
         </Flex>
       </Flex>

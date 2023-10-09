@@ -2,17 +2,40 @@ import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { Avatar, Flex, IconButton, Text } from 'native-base';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+
 import { convertISODate } from 'src/utils';
 
-export function ChatCard() {
+type ChatCardProps = {
+  userPhoto: string;
+  firstName: string;
+  lastName: string;
+  updatedAt: string;
+  messages?: string[];
+  chatId: number;
+  userSenderId: number;
+  activityId: number;
+};
+
+export function ChatCard({
+  chatId,
+  userSenderId,
+  activityId,
+  userPhoto,
+  firstName,
+  lastName,
+  updatedAt,
+  messages,
+}: ChatCardProps) {
   const { navigate } = useNavigation() as any;
+
+  const lastMessage = messages?.[messages.length - 1];
 
   const navigateToProfile = () => {
     console.log('navigateToProfile');
   };
 
   const handleNavigateToChat = () => {
-    navigate('Chat', { chatId: '1' });
+    navigate('Chat', { chatId, userSenderId, activityId });
   };
 
   return (
@@ -30,27 +53,22 @@ export function ChatCard() {
     >
       <Flex w="85%" direction="row">
         <TouchableOpacity onPress={navigateToProfile}>
-          <Avatar
-            source={{ uri: 'https://avatars.githubusercontent.com/u/66326378?v=4' }}
-            size="md"
-            mr={2}
-            bg="brand.400"
-          >
-            Davi
+          <Avatar source={{ uri: userPhoto }} size="md" mr={2} bg="brand.400">
+            {firstName[0]}
             <Avatar.Badge bg="green.500" borderWidth={1} borderColor="brand.300" />
           </Avatar>
         </TouchableOpacity>
         <Flex justify="space-around" h="auto" w="100%">
           <Flex direction="row">
             <Text color="brand.100" fontWeight="500" fontSize="sm">
-              Jhonas
+              {firstName} {lastName}
             </Text>
             <Text color="brand.100" fontWeight="500" fontSize="sm" opacity={0.6} ml={1}>
-              • {convertISODate('2021-09-01T00:00:00.000Z')}
+              • {convertISODate(updatedAt)}
             </Text>
           </Flex>
           <Text color="brand.200" noOfLines={1} maxW="70%" opacity={0.7}>
-            Olá, tudo bem? Estou interessado em comprar o seu produto. Podemos negociar?
+            {lastMessage ?? 'Comece uma conversa! :D'}
           </Text>
         </Flex>
       </Flex>
