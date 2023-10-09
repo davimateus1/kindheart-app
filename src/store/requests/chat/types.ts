@@ -9,7 +9,14 @@ export type CreateChatReturn = {
 };
 
 export type GetChatProps = {
-  userSenderId: string;
   chatId: string;
   activityId: string;
+};
+
+export type ElderlyActionProps = {
+  activity_id: string;
+  elderly_id: string;
+  voluntary_id: string;
+  chat_id: string;
+  action: 'STARTED' | 'CANCELED' | 'FINISHED';
 };

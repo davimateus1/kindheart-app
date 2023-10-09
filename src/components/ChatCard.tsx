@@ -1,7 +1,6 @@
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { Avatar, Flex, IconButton, Text } from 'native-base';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import { convertISODate } from 'src/utils';
 
@@ -14,6 +13,8 @@ type ChatCardProps = {
   chatId: number;
   userSenderId: number;
   activityId: number;
+  chatStatus: 'ACTIVE' | 'INACTIVE';
+  chatSuccess: boolean;
 };
 
 export function ChatCard({
@@ -25,14 +26,12 @@ export function ChatCard({
   lastName,
   updatedAt,
   messages,
+  chatStatus,
+  chatSuccess,
 }: ChatCardProps) {
   const { navigate } = useNavigation() as any;
 
   const lastMessage = messages?.[messages.length - 1];
-
-  const navigateToProfile = () => {
-    console.log('navigateToProfile');
-  };
 
   const handleNavigateToChat = () => {
     navigate('Chat', { chatId, userSenderId, activityId });
@@ -40,7 +39,7 @@ export function ChatCard({
 
   return (
     <Flex
-      bg="white"
+      bg={chatSuccess ? 'brand.50' : 'white'}
       my={2}
       h={75}
       borderRadius={5}
@@ -50,14 +49,13 @@ export function ChatCard({
       shadow={3}
       direction="row"
       justify="space-between"
+      opacity={chatStatus === 'ACTIVE' ? 1 : 0.6}
     >
       <Flex w="85%" direction="row">
-        <TouchableOpacity onPress={navigateToProfile}>
-          <Avatar source={{ uri: userPhoto }} size="md" mr={2} bg="brand.400">
-            {firstName[0]}
-            <Avatar.Badge bg="green.500" borderWidth={1} borderColor="brand.300" />
-          </Avatar>
-        </TouchableOpacity>
+        <Avatar source={{ uri: userPhoto }} size="md" mr={2} bg="brand.400">
+          {firstName[0]}
+          <Avatar.Badge bg="green.500" borderWidth={1} borderColor="brand.300" />
+        </Avatar>
         <Flex justify="space-around" h="auto" w="100%">
           <Flex direction="row">
             <Text color="brand.100" fontWeight="500" fontSize="sm">
@@ -76,7 +74,7 @@ export function ChatCard({
         icon={<Ionicons name="chevron-forward" size={24} color="#28CD56" />}
         bg="transparent"
         _pressed={{ bg: 'transparent' }}
-        onPress={handleNavigateToChat}
+        onPress={chatStatus === 'ACTIVE' ? handleNavigateToChat : () => {}}
         w="15%"
       />
     </Flex>

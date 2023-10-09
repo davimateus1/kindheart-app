@@ -15,7 +15,7 @@ type ChatScreenProps = {
 export function ChatScreen({ navigation, route }: ChatScreenProps) {
   const { chatId, userSenderId, activityId } = route.params;
 
-  const { data: chat } = useGetUserChat({ chatId, activityId, userSenderId });
+  const { data: chat } = useGetUserChat({ chatId, activityId });
 
   const isElderly = chat?.activity?.user_elderly_id === Number(userSenderId);
 
@@ -80,6 +80,11 @@ export function ChatScreen({ navigation, route }: ChatScreenProps) {
               description={chat?.activity?.description}
               photo={chat?.activity?.image}
               createdAt={chat?.activity?.created_at}
+              userSenderId={userSenderId}
+              chatId={chatId}
+              activityId={activityId}
+              acticityStatus={chat?.activity?.status}
+              userSenderName={chat?.user_sender.first_name}
             />
           </Flex>
         )}

@@ -10,6 +10,17 @@ export function AllChatsScreen() {
   const [tabIndex, setTabIndex] = useState<0 | 1>(0);
   const { data: chats, isLoading } = useGetUserChats({ userId: user?.id as number });
 
+  const activeChats = chats?.filter(chat => chat.status === 'ACTIVE');
+  const inactiveChats = chats?.filter(chat => chat.status === 'INACTIVE');
+
+  const selectChats = () => {
+    if (tabIndex === 0) {
+      return activeChats;
+    }
+
+    return inactiveChats;
+  };
+
   return (
     <Flex flex={1} bgColor="white" direction="column" align="center">
       <CustomHeader justify="flex-end">
@@ -42,9 +53,9 @@ export function AllChatsScreen() {
               </Flex>
             ) : (
               <Box>
-                {chats ? (
+                {selectChats()?.length ? (
                   <Box>
-                    {chats?.map(chat => (
+                    {selectChats()?.map(chat => (
                       <ChatCard
                         key={chat.id}
                         chatId={chat.id}
@@ -55,6 +66,8 @@ export function AllChatsScreen() {
                         userPhoto={chat.user_receiver.photo}
                         lastName={chat.user_receiver.last_name}
                         firstName={chat.user_receiver.first_name}
+                        chatStatus={chat.status}
+                        chatSuccess={chat.success}
                       />
                     ))}
                   </Box>

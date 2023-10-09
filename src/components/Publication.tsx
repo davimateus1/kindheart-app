@@ -167,18 +167,20 @@ export function Publication({
             </Text>
           </Flex>
           <Flex direction="row" align="center" w="50%" justify="flex-end">
-            <Text
-              bg={renderStatus(status).bgColor}
-              px={5}
-              borderRadius={20}
-              textAlign="center"
-              borderWidth={1}
-              color={renderStatus(status).color}
-              borderColor={renderStatus(status).color}
-              mr={2}
-            >
-              {renderStatus(status).title}
-            </Text>
+            {isElderlyPost && (
+              <Text
+                bg={renderStatus(status).bgColor}
+                px={5}
+                borderRadius={20}
+                textAlign="center"
+                borderWidth={1}
+                color={renderStatus(status).color}
+                borderColor={renderStatus(status).color}
+                mr={2}
+              >
+                {renderStatus(status).title}
+              </Text>
+            )}
             {canSendMessage && (
               <Ionicons
                 name="paper-plane-outline"

@@ -37,6 +37,7 @@ export function useFriendship(): UseFriendshipProps {
       });
 
       queryClient.invalidateQueries(['feed']);
+      queryClient.invalidateQueries(['users']);
     },
   });
 

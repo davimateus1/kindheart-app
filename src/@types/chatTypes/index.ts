@@ -12,6 +12,8 @@ export type Chat = {
   user_receiver: UserMessager;
   messages: any[]; // TODO: add type
   activity?: Activity;
+  status: 'ACTIVE' | 'INACTIVE';
+  success: boolean;
 };
 
 export type UserMessager = {
