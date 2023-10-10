@@ -1,28 +1,47 @@
 import { AntDesign, Feather, Ionicons } from '@expo/vector-icons';
 import { NavigationProp, RouteProp } from '@react-navigation/native';
-import { Flex, ScrollView, Text } from 'native-base';
+import { Box, Flex, Image, ScrollView, Text } from 'native-base';
 import { ChatBubble, CustomButton, CustomHeader, CustomInput } from 'src/components';
 
 import { useForm } from 'react-hook-form';
-import { useGetUserChat } from 'src/store';
+import { useCreateChatMessage, useGetUserChat } from 'src/store';
 import { ActionActivityCard } from 'src/components/ActionActivityCard';
+import { useEffect } from 'react';
+import socket from 'src/utils/socket';
+import { useAuth } from 'src/contexts/auth';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { MessageSchema, messageSchema } from 'src/schemas';
+import KindheartLogo from 'assets/images/kindheart-logo.png';
 
 type ChatScreenProps = {
   navigation: NavigationProp<Record<string, object | undefined>>;
-  route: RouteProp<Record<string, { chatId: string; userSenderId: string; activityId: string }>>;
+  route: RouteProp<
+    Record<string, { chatId: number; userSenderId: number; activityId: number; userName: string }>
+  >;
 };
 
 export function ChatScreen({ navigation, route }: ChatScreenProps) {
-  const { chatId, userSenderId, activityId } = route.params;
+  const { user } = useAuth();
+  const { chatId, userSenderId, activityId, userName } = route.params;
 
-  const { data: chat } = useGetUserChat({ chatId, activityId });
+  const { data: chat, refetch } = useGetUserChat({
+    chatId: String(chatId),
+    activityId: String(activityId),
+  });
 
-  const isElderly = chat?.activity?.user_elderly_id === Number(userSenderId);
+  const { messageMutate, messageLoading } = useCreateChatMessage();
+
+  const isElderly = chat?.activity?.user_elderly_id === user?.id;
 
   const {
     control,
     formState: { errors },
-  } = useForm();
+    handleSubmit,
+    reset,
+  } = useForm<MessageSchema>({
+    reValidateMode: 'onChange',
+    resolver: zodResolver(messageSchema),
+  });
 
   const handleGoBack = () => {
     navigation.goBack();
@@ -31,6 +50,24 @@ export function ChatScreen({ navigation, route }: ChatScreenProps) {
   const handleGoElderlyStatute = () => {
     navigation.navigate('ElderlyStatute');
   };
+
+  useEffect(() => {
+    socket.on('new_message', message => {
+      if (message.chat_id === Number(chatId) && message.author_id !== user?.id) {
+        refetch();
+      }
+    });
+  }, [chatId, refetch, user]);
+
+  const handleSubmitMessage = handleSubmit(data => {
+    messageMutate({
+      chat_id: String(chatId),
+      author_id: String(user?.id),
+      text: data.message,
+    });
+
+    reset({ message: '' });
+  });
 
   return (
     <Flex flex={1} bgColor="white" direction="column" align="center">
@@ -51,7 +88,7 @@ export function ChatScreen({ navigation, route }: ChatScreenProps) {
               mx={2}
             />
             <Text color="brand.200" fontWeight="bold">
-              {chat?.user_receiver.first_name} {chat?.user_receiver.last_name}
+              {userName}
             </Text>
           </Flex>
           <Flex w="25%" justify="flex-start" direction="row" align="center">
@@ -84,18 +121,31 @@ export function ChatScreen({ navigation, route }: ChatScreenProps) {
               chatId={chatId}
               activityId={activityId}
               acticityStatus={chat?.activity?.status}
-              userSenderName={chat?.user_sender.first_name}
+              userSenderName={chat?.user_sender.first_name ?? ''}
             />
           </Flex>
         )}
         <Flex h={isElderly ? '70%' : '87%'} bg="opacity.green-40" w="100%" px={5}>
           <ScrollView w="100%" overScrollMode="never" mb={2}>
-            <ChatBubble
-              isMyMessage={false}
-              message="Olá, tudo bem? Estou interessado em comprar o seu produto. Podemos negociar?"
-              userAvatar="https://avatars.githubusercontent.com/u/66326378?v=4"
-              key={1}
-            />
+            {chat?.messages.length ? (
+              <Box>
+                {chat?.messages.map(message => (
+                  <ChatBubble
+                    key={message.id}
+                    message={message.text}
+                    userAvatar={message.author_photo}
+                    isMyMessage={message.author_id === user?.id}
+                  />
+                ))}
+              </Box>
+            ) : (
+              <Flex flex={1} direction="column" align="center">
+                <Image source={KindheartLogo} alt="kindheart-logo" mt={5} />
+                <Text color="brand.200" fontWeight="bold" textAlign="center" mt={5}>
+                  Envie uma mensagem para iniciar a conversa.
+                </Text>
+              </Flex>
+            )}
           </ScrollView>
         </Flex>
         <Flex
@@ -131,6 +181,8 @@ export function ChatScreen({ navigation, route }: ChatScreenProps) {
               justifyContent="center"
               alignItems="center"
               _pressed={{ bg: 'opacity.green-40' }}
+              onPress={handleSubmitMessage}
+              isLoading={messageLoading}
             >
               <Feather name="send" size={25} color="white" />
             </CustomButton>

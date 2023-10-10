@@ -16,6 +16,7 @@ import PoppinsLight from './assets/fonts/Poppins-Light.ttf';
 import PoppinsThin from './assets/fonts/Poppins-Thin.ttf';
 import PoppinsExtraBold from './assets/fonts/Poppins-ExtraBold.ttf';
 import PoppinsBlack from './assets/fonts/Poppins-Black.ttf';
+import 'src/utils/socket';
 
 function App() {
   const fetchFonts = async () => {

@@ -20,3 +20,9 @@ export type ElderlyActionProps = {
   chat_id: string;
   action: 'STARTED' | 'CANCELED' | 'FINISHED';
 };
+
+export type CreateChatMessageProps = {
+  chat_id: string;
+  author_id: string;
+  text: string;
+};

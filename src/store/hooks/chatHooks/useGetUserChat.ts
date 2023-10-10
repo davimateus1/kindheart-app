@@ -7,12 +7,7 @@ export type UseGetUserChatProps = {
   activityId: string;
 } & UseQueryOptions<Chat, unknown>;
 
-export const useGetUserChat = ({
-  chatId,
-
-  activityId,
-  ...rest
-}: UseGetUserChatProps) =>
+export const useGetUserChat = ({ chatId, activityId, ...rest }: UseGetUserChatProps) =>
   useQuery({
     queryFn: () => getUserChat({ chatId, activityId }),
     queryKey: ['chat', chatId],

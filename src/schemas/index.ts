@@ -58,3 +58,9 @@ export const feedPostSchema = z.object({
 });
 
 export type FeedPostSchema = z.infer<typeof feedPostSchema>;
+
+export const messageSchema = z.object({
+  message: z.string({ required_error: 'O campo mensagem é obrigatório' }).trim(),
+});
+
+export type MessageSchema = z.infer<typeof messageSchema>;

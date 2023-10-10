@@ -1,15 +1,15 @@
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { Avatar, Flex, IconButton, Text } from 'native-base';
+import { Message } from 'src/@types/chatTypes';
 
 import { convertISODate } from 'src/utils';
 
 type ChatCardProps = {
   userPhoto: string;
-  firstName: string;
-  lastName: string;
+  userName: string;
   updatedAt: string;
-  messages?: string[];
+  messages?: Array<Message>;
   chatId: number;
   userSenderId: number;
   activityId: number;
@@ -22,8 +22,7 @@ export function ChatCard({
   userSenderId,
   activityId,
   userPhoto,
-  firstName,
-  lastName,
+  userName,
   updatedAt,
   messages,
   chatStatus,
@@ -31,10 +30,10 @@ export function ChatCard({
 }: ChatCardProps) {
   const { navigate } = useNavigation() as any;
 
-  const lastMessage = messages?.[messages.length - 1];
+  const lastMessage = messages?.[messages.length - 1]?.text;
 
   const handleNavigateToChat = () => {
-    navigate('Chat', { chatId, userSenderId, activityId });
+    navigate('Chat', { chatId, userSenderId, activityId, userName });
   };
 
   return (
@@ -53,13 +52,13 @@ export function ChatCard({
     >
       <Flex w="85%" direction="row">
         <Avatar source={{ uri: userPhoto }} size="md" mr={2} bg="brand.400">
-          {firstName[0]}
+          {userName[0]}
           <Avatar.Badge bg="green.500" borderWidth={1} borderColor="brand.300" />
         </Avatar>
         <Flex justify="space-around" h="auto" w="100%">
           <Flex direction="row">
             <Text color="brand.100" fontWeight="500" fontSize="sm">
-              {firstName} {lastName}
+              {userName}
             </Text>
             <Text color="brand.100" fontWeight="500" fontSize="sm" opacity={0.6} ml={1}>
               • {convertISODate(updatedAt)}

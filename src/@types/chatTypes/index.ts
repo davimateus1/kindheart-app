@@ -10,10 +10,12 @@ export type Chat = {
   updated_at: string;
   user_sender: UserMessager;
   user_receiver: UserMessager;
-  messages: any[]; // TODO: add type
+  messages: Array<Message>;
   activity?: Activity;
   status: 'ACTIVE' | 'INACTIVE';
   success: boolean;
+  user_name: string;
+  user_photo: string;
 };
 
 export type UserMessager = {
@@ -23,4 +25,15 @@ export type UserMessager = {
   photo: string;
   role: RoleType;
   address: string;
+};
+
+export type Message = {
+  id: number;
+  author_id: number;
+  author_photo: string;
+  chat_id: number;
+  text: string;
+  is_read: boolean;
+  created_at: string;
+  updated_at: string;
 };

@@ -17,7 +17,6 @@ export function AllChatsScreen() {
     if (tabIndex === 0) {
       return activeChats;
     }
-
     return inactiveChats;
   };
 
@@ -63,9 +62,8 @@ export function AllChatsScreen() {
                         updatedAt={chat.updated_at}
                         activityId={chat.activity_id}
                         userSenderId={user?.id as number}
-                        userPhoto={chat.user_receiver.photo}
-                        lastName={chat.user_receiver.last_name}
-                        firstName={chat.user_receiver.first_name}
+                        userPhoto={chat.user_photo}
+                        userName={chat.user_name}
                         chatStatus={chat.status}
                         chatSuccess={chat.success}
                       />
