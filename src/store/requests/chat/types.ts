@@ -5,7 +5,7 @@ export type CreateChatProps = {
 };
 
 export type CreateChatReturn = {
-  data: { chat_id: string; user_sender_id: string; activity_id: string };
+  data: { chat_id: string; user_sender_id: string; activity_id: string; user_name: string };
 };
 
 export type GetChatProps = {

@@ -28,6 +28,7 @@ export function useCreateChat(): UseCreateChatProps {
       const chatId = response.data.chat_id;
       const userSenderId = response.data.user_sender_id;
       const activityId = response.data.activity_id;
+      const userName = response.data.user_name;
 
       showSuccessToast({
         title: `Chat criado com sucesso!`,
@@ -36,7 +37,7 @@ export function useCreateChat(): UseCreateChatProps {
 
       queryClient.invalidateQueries(['feed']);
 
-      navigate('Chat', { chatId, userSenderId, activityId });
+      navigate('Chat', { chatId, userSenderId, activityId, userName });
     },
   });
 

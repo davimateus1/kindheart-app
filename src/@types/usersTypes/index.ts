@@ -17,6 +17,8 @@ export type UserProfile = {
   posts_count: number;
   reviews_count: number;
   age: number;
+  friends?: Array<number>;
+  total_chats?: number;
 };
 
 export type Activity = {

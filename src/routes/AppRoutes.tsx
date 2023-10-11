@@ -6,8 +6,7 @@ import { CreateFeedPostScreen, ProfileScreen, ChatScreen, ElderlyStatuteScreen }
 import { AuthRoutes } from './authRoutes';
 import { TabRoutes } from './tabRoutes';
 
-const { Navigator: AuthNavigator, Screen: AuthScreen } = createStackNavigator();
-const { Navigator: HomeNavigator, Screen: HomeScreen } = createStackNavigator();
+const { Navigator, Screen } = createStackNavigator();
 
 function LoadingNavigator() {
   const { active } = useAuth();
@@ -27,20 +26,20 @@ function AppNavigator() {
 
   return (
     <NavigationContainer>
-      {user ? (
-        <HomeNavigator screenOptions={{ headerShown: false }}>
-          <HomeScreen name="TabRoutes" component={TabRoutes} />
-          {/* This routes dont have a tab bar */}
-          <HomeScreen name="OtherUserProfile" component={ProfileScreen as ComponentType<unknown>} />
-          <HomeScreen name="Chat" component={ChatScreen} />
-          <HomeScreen name="CreateFeedPost" component={CreateFeedPostScreen} />
-          <HomeScreen name="ElderlyStatute" component={ElderlyStatuteScreen} />
-        </HomeNavigator>
-      ) : (
-        <AuthNavigator screenOptions={{ headerShown: false }}>
-          <AuthScreen name="AuthRoutes" component={AuthRoutes} />
-        </AuthNavigator>
-      )}
+      <Navigator screenOptions={{ headerShown: false }}>
+        {user === null ? (
+          <Screen name="AuthRoutes" component={AuthRoutes} />
+        ) : (
+          <>
+            <Screen name="TabRoutes" component={TabRoutes} />
+            <Screen name="OtherUserProfile" component={ProfileScreen as ComponentType<unknown>} />
+            <Screen name="Chat" component={ChatScreen as ComponentType<unknown>} />
+            <Screen name="CreateFeedPost" component={CreateFeedPostScreen} />
+            <Screen name="ElderlyStatute" component={ElderlyStatuteScreen} />
+          </>
+        )}
+      </Navigator>
+
       <LoadingNavigator />
     </NavigationContainer>
   );

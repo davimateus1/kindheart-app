@@ -4,7 +4,7 @@ import { Avatar, Divider, Flex, Heading, ScrollView, Spinner, Text } from 'nativ
 import { RoleType } from 'src/@types/authTypes';
 import { CustomButton, CustomHeader, InfoCard } from 'src/components';
 import { useAuth } from 'src/contexts/auth';
-import { useGetUserProfile } from 'src/store';
+import { useFriendship, useGetUserProfile } from 'src/store';
 
 type ProfileScreenProps = {
   route: RouteProp<Record<string, { userId: number; userType: RoleType }>>;
@@ -14,21 +14,31 @@ type ProfileScreenProps = {
 export function ProfileScreen({ route, navigation }: ProfileScreenProps) {
   const { params } = route;
   const { user } = useAuth();
+  const { friendshipMutate, friendshipLoading } = useFriendship();
 
   const chooseUser = () => {
     if (params?.userId && params?.userType) {
-      return { id: params.userId, role: params.userType };
+      return { id: params.userId };
     }
-    return { id: user?.id ?? 0, role: user?.role ?? 'VOLUNTARY' };
+    return { id: user?.id ?? 0 };
   };
 
   const { data: userProfile, isLoading } = useGetUserProfile({
     userId: chooseUser().id,
-    userType: chooseUser().role,
   });
+
+  const isFriend = userProfile?.friends?.some(friend => friend === user?.id);
 
   const handleGoBack = () => {
     navigation.goBack();
+  };
+
+  const handleFriendship = () => {
+    friendshipMutate({
+      user_one_id: String(user?.id),
+      user_two_id: String(userProfile?.id),
+      action: isFriend ? 'REMOVE' : 'ADD',
+    });
   };
 
   return (
@@ -70,32 +80,33 @@ export function ProfileScreen({ route, navigation }: ProfileScreenProps) {
             </Text>
 
             {params?.userId && (
-              <Flex direction="row" w="80%" justify="space-between" my={3}>
+              <Flex direction="row" w="80%" justify="center" my={3}>
                 <CustomButton
                   w="48.5%"
-                  leftIcon={<Ionicons name="chatbox-ellipses-outline" size={24} color="black" />}
-                  bg="white"
-                  borderWidth={1}
-                  borderColor="brand.300"
                   rounded="full"
-                >
-                  <Text color="brand.400">Mensagem</Text>
-                </CustomButton>
-                <CustomButton
-                  w="48.5%"
-                  leftIcon={<Ionicons name="add-circle-outline" size={24} color="white" />}
                   borderWidth={1}
-                  borderColor="brand.300"
-                  rounded="full"
+                  borderColor="brand.400"
+                  bg={isFriend ? 'brand.300' : 'brand.50'}
+                  leftIcon={
+                    <Ionicons
+                      name={isFriend ? 'remove-circle-outline' : 'add-circle-outline'}
+                      size={24}
+                      color={isFriend ? 'black' : 'white'}
+                    />
+                  }
+                  onPress={handleFriendship}
+                  isLoading={friendshipLoading}
                 >
-                  Adicionar
+                  <Text color={isFriend ? 'black' : 'white'}>
+                    {isFriend ? 'Remover' : 'Adicionar'}
+                  </Text>
                 </CustomButton>
               </Flex>
             )}
             <Flex w="100%" direction="row" justify="space-around" my={5}>
               <InfoCard label="Publicações" value={userProfile?.posts_count ?? 0} w="32.3%" />
-              <InfoCard label="Feedbacks" value={userProfile?.reviews_count ?? 0} w="32.3%" />
               <InfoCard label="Conexões" value={userProfile?.friends_count ?? 0} w="32.3%" />
+              <InfoCard label="Interações" value={userProfile?.total_chats ?? 0} w="32.3%" />
             </Flex>
           </Flex>
           <Divider w="100%" bg="brand.300" />

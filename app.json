@@ -4,10 +4,10 @@
     "slug": "kindheart-app",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/kindheart-logo.png",
+    "icon": "./assets/images/splash.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/images/kindheart-logo.png",
+      "image": "./assets/images/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },

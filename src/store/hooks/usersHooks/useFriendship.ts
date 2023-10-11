@@ -33,7 +33,7 @@ export function useFriendship(): UseFriendshipProps {
         } com sucesso!`,
         description: response.data.message.includes('addeed')
           ? 'Agora você pode interagir com o usuário'
-          : 'Você não receberá mais notificações deste usuário',
+          : 'Você não pode mais interagir com o usuário',
       });
 
       queryClient.invalidateQueries(['feed']);

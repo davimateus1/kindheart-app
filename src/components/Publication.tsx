@@ -94,7 +94,6 @@ export function Publication({
           <TouchableOpacity onPress={navigateToProfile}>
             <Avatar source={{ uri: profileImage }} size="lg" mr={2} bg="brand.400">
               {name[0]}
-              <Avatar.Badge bg="green.500" borderWidth={1} borderColor="brand.300" />
             </Avatar>
           </TouchableOpacity>
           <Flex justify="space-around" h="auto" w="100%">

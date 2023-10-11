@@ -10,5 +10,6 @@ export const useGetUserChats = ({ userId, ...rest }: UseGetUserChatsProps) =>
   useQuery({
     queryFn: () => getUserChats(userId),
     queryKey: ['chats', userId],
+    enabled: !!userId,
     ...rest,
   });

@@ -10,13 +10,24 @@ type FeedScreenProps = {
   navigation: NavigationProp<Record<string, object | undefined>>;
 };
 
+type NativeEvent = {
+  nativeEvent: {
+    layoutMeasurement: { height: number };
+    contentOffset: { y: number };
+    contentSize: { height: number };
+  };
+};
+
 const POSTS_TO_ADD = 10;
 
 export function FeedScreen({ navigation }: FeedScreenProps) {
   const { user } = useAuth();
   const [addPosts, setAddPosts] = useState(POSTS_TO_ADD);
 
-  const { data: feed, isLoading } = useGetUserFeed({ userId: user?.id ?? 0, take: addPosts });
+  const { data: feed, isLoading } = useGetUserFeed({
+    userId: user?.id ?? 0,
+    take: addPosts,
+  });
 
   const totalPosts = feed?.[0]?.total_posts ?? 0;
 
@@ -24,7 +35,7 @@ export function FeedScreen({ navigation }: FeedScreenProps) {
     setAddPosts(prev => prev + POSTS_TO_ADD);
   };
 
-  const onScrollPosts = ({ nativeEvent }: any) => {
+  const onScrollPosts = ({ nativeEvent }: NativeEvent) => {
     const { layoutMeasurement, contentOffset, contentSize } = nativeEvent;
     const paddingToBottom = 20;
     if (layoutMeasurement.height + contentOffset.y >= contentSize.height - paddingToBottom) {
@@ -67,19 +78,13 @@ export function FeedScreen({ navigation }: FeedScreenProps) {
           </CustomButton>
         </Flex>
         <Flex h="100%">
-          {totalPosts === 0 ? (
+          {isLoading ? (
             <Flex flex={1} justify="center" align="center" h="200">
-              <Text color="brand.100" fontWeight="500" fontSize="lg">
-                Nenhuma publicação encontrada
-              </Text>
+              <Spinner color="brand.50" size={50} />
             </Flex>
           ) : (
             <Box>
-              {isLoading ? (
-                <Flex flex={1} justify="center" align="center" h="200">
-                  <Spinner color="brand.50" size={50} />
-                </Flex>
-              ) : (
+              {feed?.length ? (
                 <Box>
                   {feed?.map((post, index) => (
                     <Fragment key={post.id}>
@@ -105,6 +110,12 @@ export function FeedScreen({ navigation }: FeedScreenProps) {
                     </Fragment>
                   ))}
                 </Box>
+              ) : (
+                <Flex flex={1} justify="center" align="center" h="200">
+                  <Text color="brand.100" fontWeight="500" fontSize="lg">
+                    Nenhuma publicação encontrada
+                  </Text>
+                </Flex>
               )}
             </Box>
           )}

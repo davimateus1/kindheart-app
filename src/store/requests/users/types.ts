@@ -1,6 +1,5 @@
 export type GetUserProfileProps = {
   userId: number;
-  userType: string;
 };
 
 export type CreateFriendshipProps = {

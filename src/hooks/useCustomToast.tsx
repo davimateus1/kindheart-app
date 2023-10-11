@@ -56,6 +56,7 @@ export function useCustomToast() {
           </HStack>
         </Box>
       ),
+      placement: 'top',
     });
   };
 

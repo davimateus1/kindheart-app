@@ -1,8 +1,8 @@
 import { axiosInstance } from 'src/store/services';
 import { CreateFriendshipProps, GetUserProfileProps } from './types';
 
-export async function getUserProfile({ userId, userType }: GetUserProfileProps) {
-  const response = await axiosInstance.get(`/users/${userId}/${userType}`);
+export async function getUserProfile({ userId }: GetUserProfileProps) {
+  const response = await axiosInstance.get(`/users/${userId}`);
   return response.data;
 }
 

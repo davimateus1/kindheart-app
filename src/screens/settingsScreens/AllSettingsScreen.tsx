@@ -7,7 +7,6 @@ export function AllSettingsScreen() {
   const { user } = useAuth();
   const { data: userProfile, isLoading } = useGetUserProfile({
     userId: user?.id ?? 0,
-    userType: user?.role ?? 'VOLUNTARY',
   });
 
   return (
@@ -22,7 +21,7 @@ export function AllSettingsScreen() {
           <Flex w="100%" direction="row" justify="space-between" mt={5}>
             <InfoCard label="Publicações" value={userProfile?.posts_count ?? 0} />
             <InfoCard label="Conexões" value={userProfile?.friends_count ?? 0} />
-            <InfoCard label="Feedbacks" value={userProfile?.reviews_count ?? 0} />
+            <InfoCard label="Interações" value={userProfile?.total_chats ?? 0} />
           </Flex>
           <Flex w="100%" direction="column" justify="space-between" mt={5}>
             <SettingOption
@@ -35,7 +34,6 @@ export function AllSettingsScreen() {
               title="Mensagens"
               description="Interaja com suas conexões"
               navigateFor="Messages"
-              messagesCount={4}
             />
             <SettingOption
               title="Estatuto do idoso"

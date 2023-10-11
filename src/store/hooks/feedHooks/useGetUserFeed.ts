@@ -11,5 +11,6 @@ export const useGetUserFeed = ({ userId, take, ...rest }: UseGetUserFeedProps) =
   useQuery({
     queryFn: () => getUserFeed({ userId, take }),
     queryKey: ['feed', userId, take],
+    enabled: !!userId,
     ...rest,
   });

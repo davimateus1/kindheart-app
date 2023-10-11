@@ -36,9 +36,21 @@ export function ChatCard({
     navigate('Chat', { chatId, userSenderId, activityId, userName });
   };
 
+  const selectBgColor = () => {
+    if (chatSuccess && chatStatus === 'INACTIVE') {
+      return 'brand.50';
+    }
+
+    if (!chatSuccess && chatStatus === 'INACTIVE') {
+      return 'red.100';
+    }
+
+    return 'white';
+  };
+
   return (
     <Flex
-      bg={chatSuccess ? 'brand.50' : 'white'}
+      bg={selectBgColor()}
       my={2}
       h={75}
       borderRadius={5}
@@ -53,7 +65,6 @@ export function ChatCard({
       <Flex w="85%" direction="row">
         <Avatar source={{ uri: userPhoto }} size="md" mr={2} bg="brand.400">
           {userName[0]}
-          <Avatar.Badge bg="green.500" borderWidth={1} borderColor="brand.300" />
         </Avatar>
         <Flex justify="space-around" h="auto" w="100%">
           <Flex direction="row">
@@ -73,7 +84,7 @@ export function ChatCard({
         icon={<Ionicons name="chevron-forward" size={24} color="#28CD56" />}
         bg="transparent"
         _pressed={{ bg: 'transparent' }}
-        onPress={chatStatus === 'ACTIVE' ? handleNavigateToChat : () => {}}
+        onPress={handleNavigateToChat}
         w="15%"
       />
     </Flex>

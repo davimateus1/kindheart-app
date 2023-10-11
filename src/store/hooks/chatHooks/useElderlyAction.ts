@@ -11,10 +11,7 @@ import { Activity } from 'src/@types/usersTypes';
 type UseElderlyActionProps = {
   actionLoading: boolean;
   actionMutate: UseMutateFunction<
-    {
-      action: 'STARTED' | 'CANCELED' | 'FINISHED';
-      activity: Activity;
-    },
+    { action: 'STARTED' | 'CANCELED' | 'FINISHED'; activity: Activity },
     unknown,
     ElderlyActionProps,
     unknown

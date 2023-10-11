@@ -1,6 +1,6 @@
 import { AntDesign, Feather, Ionicons } from '@expo/vector-icons';
 import { NavigationProp, RouteProp } from '@react-navigation/native';
-import { Box, Flex, Image, ScrollView, Text } from 'native-base';
+import { Box, Flex, Image, ScrollView, Spinner, Text } from 'native-base';
 import { ChatBubble, CustomButton, CustomHeader, CustomInput } from 'src/components';
 
 import { useForm } from 'react-hook-form';
@@ -24,14 +24,20 @@ export function ChatScreen({ navigation, route }: ChatScreenProps) {
   const { user } = useAuth();
   const { chatId, userSenderId, activityId, userName } = route.params;
 
-  const { data: chat, refetch } = useGetUserChat({
+  const {
+    data: chat,
+    refetch,
+    isLoading,
+  } = useGetUserChat({
     chatId: String(chatId),
     activityId: String(activityId),
   });
 
-  const { messageMutate, messageLoading } = useCreateChatMessage();
+  const isInactiveChat = chat?.status === 'INACTIVE';
 
   const isElderly = chat?.activity?.user_elderly_id === user?.id;
+
+  const { messageMutate, messageLoading } = useCreateChatMessage();
 
   const {
     control,
@@ -111,7 +117,7 @@ export function ChatScreen({ navigation, route }: ChatScreenProps) {
       </CustomHeader>
 
       <Flex flex={1} direction="column" align="center" w="100%">
-        {isElderly && (
+        {isElderly && !isInactiveChat && (
           <Flex h="17%" w="100%">
             <ActionActivityCard
               description={chat?.activity?.description}
@@ -122,29 +128,50 @@ export function ChatScreen({ navigation, route }: ChatScreenProps) {
               activityId={activityId}
               acticityStatus={chat?.activity?.status}
               userSenderName={chat?.user_sender.first_name ?? ''}
+              messageMutate={messageMutate}
             />
           </Flex>
         )}
-        <Flex h={isElderly ? '70%' : '87%'} bg="opacity.green-40" w="100%" px={5}>
+        <Flex
+          h={isElderly && !isInactiveChat ? '70%' : '87%'}
+          bg="opacity.green-40"
+          w="100%"
+          px={5}
+        >
           <ScrollView w="100%" overScrollMode="never" mb={2}>
-            {chat?.messages.length ? (
-              <Box>
-                {chat?.messages.map(message => (
-                  <ChatBubble
-                    key={message.id}
-                    message={message.text}
-                    userAvatar={message.author_photo}
-                    isMyMessage={message.author_id === user?.id}
-                  />
-                ))}
-              </Box>
-            ) : (
-              <Flex flex={1} direction="column" align="center">
-                <Image source={KindheartLogo} alt="kindheart-logo" mt={5} />
-                <Text color="brand.200" fontWeight="bold" textAlign="center" mt={5}>
-                  Envie uma mensagem para iniciar a conversa.
-                </Text>
+            {isLoading ? (
+              <Flex flex={1} justify="center" align="center" mt={10}>
+                <Spinner color="brand.50" size={50} />
               </Flex>
+            ) : (
+              <Box>
+                {chat?.messages.length ? (
+                  <Box>
+                    {chat?.messages.map(message => (
+                      <ChatBubble
+                        key={message.id}
+                        message={message.text}
+                        userAvatar={message.author_photo}
+                        isMyMessage={message.author_id === user?.id}
+                      />
+                    ))}
+                  </Box>
+                ) : (
+                  <Flex flex={1} direction="column" align="center">
+                    <Image source={KindheartLogo} alt="kindheart-logo" mt={5} />
+                    <Text color="brand.200" fontWeight="bold" textAlign="center" mt={5}>
+                      Envie uma mensagem para iniciar a conversa.
+                    </Text>
+                  </Flex>
+                )}
+                {isInactiveChat && (
+                  <Flex>
+                    <Text color="brand.200" fontWeight="bold" textAlign="center" mt={5}>
+                      Essa atividade foi finalizada e não é mais possível enviar mensagens.
+                    </Text>
+                  </Flex>
+                )}
+              </Box>
             )}
           </ScrollView>
         </Flex>
@@ -169,6 +196,7 @@ export function ChatScreen({ navigation, route }: ChatScreenProps) {
               _focus: { borderColor: 'brand.50', bg: 'opacity.green-40' },
             }}
             error={errors.message}
+            isEditable={!isInactiveChat}
           />
           <Flex w="15%" align="flex-end">
             <CustomButton
@@ -183,6 +211,7 @@ export function ChatScreen({ navigation, route }: ChatScreenProps) {
               _pressed={{ bg: 'opacity.green-40' }}
               onPress={handleSubmitMessage}
               isLoading={messageLoading}
+              isDisabled={isInactiveChat}
             >
               <Feather name="send" size={25} color="white" />
             </CustomButton>

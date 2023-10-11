@@ -6,7 +6,7 @@ import { useGetUserChats } from 'src/store';
 
 export function AllChatsScreen() {
   const { user } = useAuth();
-  const newMessagesCount = 28;
+
   const [tabIndex, setTabIndex] = useState<0 | 1>(0);
   const { data: chats, isLoading } = useGetUserChats({ userId: user?.id as number });
 
@@ -26,20 +26,6 @@ export function AllChatsScreen() {
         <Heading color="brand.100" fontWeight="500" fontSize="lg" textAlign="center">
           Mensagens
         </Heading>
-
-        {newMessagesCount > 0 && (
-          <Flex
-            bg="secondary.50"
-            borderRadius={50}
-            w={7}
-            h={7}
-            justify="center"
-            align="center"
-            ml={2}
-          >
-            <Text>{newMessagesCount}</Text>
-          </Flex>
-        )}
       </CustomHeader>
 
       <Flex flex={1} direction="column" align="center" w="100%">

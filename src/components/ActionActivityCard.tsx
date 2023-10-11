@@ -13,6 +13,7 @@ type ActionActivityCardProps = {
   chatId: number;
   acticityStatus?: string;
   userSenderName: string;
+  messageMutate: (data: { chat_id: string; author_id: string; text: string }) => void;
 };
 
 export function ActionActivityCard({
@@ -24,11 +25,30 @@ export function ActionActivityCard({
   activityId,
   chatId,
   acticityStatus,
+  messageMutate,
 }: ActionActivityCardProps) {
   const { user } = useAuth();
   const { actionMutate, actionLoading } = useElderlyAction();
 
-  const handleReject = (action: 'STARTED' | 'CANCELED' | 'FINISHED') => {
+  const renderChatMessage = (action: 'STARTED' | 'CANCELED' | 'FINISHED') => {
+    if (action === 'STARTED') {
+      return 'iniciada, boa sorte na atividade!';
+    }
+
+    if (action === 'CANCELED') {
+      return 'rejeitada, mas não desista, tente novamente!';
+    }
+
+    return 'finalizada, parabéns por transformar o mundo em um lugar melhor!';
+  };
+
+  const handleAction = (action: 'STARTED' | 'CANCELED' | 'FINISHED') => {
+    messageMutate({
+      chat_id: String(chatId),
+      author_id: String(user?.id),
+      text: `Essa atividade foi ${renderChatMessage(action)}`,
+    });
+
     actionMutate({
       action,
       activity_id: String(activityId),
@@ -78,7 +98,7 @@ export function ActionActivityCard({
                 borderColor="brand.400"
                 _pressed={{ bg: 'red.500' }}
                 isLoading={actionLoading}
-                onPress={() => handleReject('FINISHED')}
+                onPress={() => handleAction('FINISHED')}
               >
                 Finalizar atividade
               </CustomButton>
@@ -94,7 +114,7 @@ export function ActionActivityCard({
                   borderColor="brand.400"
                   _pressed={{ bg: 'red.500' }}
                   isLoading={actionLoading}
-                  onPress={() => handleReject('CANCELED')}
+                  onPress={() => handleAction('CANCELED')}
                 >
                   Rejeitar
                 </CustomButton>
@@ -107,7 +127,7 @@ export function ActionActivityCard({
                   borderColor="brand.400"
                   _pressed={{ bg: 'green.500' }}
                   isLoading={actionLoading}
-                  onPress={() => handleReject('STARTED')}
+                  onPress={() => handleAction('STARTED')}
                 >
                   Aceitar
                 </CustomButton>

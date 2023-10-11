@@ -11,5 +11,6 @@ export const useGetUserChat = ({ chatId, activityId, ...rest }: UseGetUserChatPr
   useQuery({
     queryFn: () => getUserChat({ chatId, activityId }),
     queryKey: ['chat', chatId],
+    enabled: !!chatId,
     ...rest,
   });
