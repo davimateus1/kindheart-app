@@ -1,14 +1,15 @@
 import { Box, Flex, Heading, ScrollView, Spinner, Text } from 'native-base';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ChatCard, CustomHeader, Tabs } from 'src/components';
 import { useAuth } from 'src/contexts/auth';
 import { useGetUserChats } from 'src/store';
+import socket from 'src/utils/socket';
 
 export function AllChatsScreen() {
   const { user } = useAuth();
 
   const [tabIndex, setTabIndex] = useState<0 | 1>(0);
-  const { data: chats, isLoading } = useGetUserChats({ userId: user?.id as number });
+  const { data: chats, isLoading, refetch } = useGetUserChats({ userId: user?.id as number });
 
   const activeChats = chats?.filter(chat => chat.status === 'ACTIVE');
   const inactiveChats = chats?.filter(chat => chat.status === 'INACTIVE');
@@ -19,6 +20,14 @@ export function AllChatsScreen() {
     }
     return inactiveChats;
   };
+
+  useEffect(() => {
+    socket.on('new_message', message => {
+      if (message.author_id !== user?.id) {
+        refetch();
+      }
+    });
+  }, [refetch, user]);
 
   return (
     <Flex flex={1} bgColor="white" direction="column" align="center">

@@ -57,6 +57,7 @@ export function useCustomToast() {
         </Box>
       ),
       placement: 'top',
+      duration: 2000,
     });
   };
 
