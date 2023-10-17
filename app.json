@@ -21,10 +21,16 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/splash.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.davimateusga.kindheartapp"
     },
     "web": {
       "favicon": "./assets/images/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "0ae11fb1-b6e5-4dcf-ae74-00ba387a6e87"
+      }
     }
   }
 }
